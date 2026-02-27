@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6ebcb6dd114a0414ab68fec1695af9fe
+timeCreated: 1504601847
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103511
+  packageName: Pixel Black Knight
+  packageVersion: 1.1
+  assetPath: Assets/Black Knight/black_knight/run.anim
+  uploadId: 685897

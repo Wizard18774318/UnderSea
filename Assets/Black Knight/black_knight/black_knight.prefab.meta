@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ddb8dec8e9dcf304fa398c7cc1bcd40a
+timeCreated: 1504601868
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103511
+  packageName: Pixel Black Knight
+  packageVersion: 1.1
+  assetPath: Assets/Black Knight/black_knight/black_knight.prefab
+  uploadId: 685897

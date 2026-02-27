@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: eba334dbb8e104e2eab2cc1230eacbd6
+timeCreated: 1509439338
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103511
+  packageName: Pixel Black Knight
+  packageVersion: 1.1
+  assetPath: Assets/Black Knight/demo/Text Animation.anim
+  uploadId: 685897

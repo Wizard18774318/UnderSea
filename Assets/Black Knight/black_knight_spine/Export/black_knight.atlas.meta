@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 74a42ba1b758e45ee835a1319716cf8d
+timeCreated: 1514880694
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103511
+  packageName: Pixel Black Knight
+  packageVersion: 1.1
+  assetPath: Assets/Black Knight/black_knight_spine/Export/black_knight.atlas
+  uploadId: 685897

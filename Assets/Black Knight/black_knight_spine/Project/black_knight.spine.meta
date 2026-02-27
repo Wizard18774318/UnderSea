@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: db88a41d3da1f4a0889eb5dafe9f65ea
+timeCreated: 1514880694
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103511
+  packageName: Pixel Black Knight
+  packageVersion: 1.1
+  assetPath: Assets/Black Knight/black_knight_spine/Project/black_knight.spine
+  uploadId: 685897

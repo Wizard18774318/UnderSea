@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d9865820dc5ec644abbcd43f4e110773
+timeCreated: 1504601846
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103511
+  packageName: Pixel Black Knight
+  packageVersion: 1.1
+  assetPath: Assets/Black Knight/black_knight/idle_2.anim
+  uploadId: 685897

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3b37125c3fd7ae24e9d29a2a93d9f29c
+timeCreated: 1504601843
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103511
+  packageName: Pixel Black Knight
+  packageVersion: 1.1
+  assetPath: Assets/Black Knight/black_knight/black_knight.controller
+  uploadId: 685897

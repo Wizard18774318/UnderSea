@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2db50dbb5a911b74dad7fc736a5e914a
+timeCreated: 1504601849
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103511
+  packageName: Pixel Black Knight
+  packageVersion: 1.1
+  assetPath: Assets/Black Knight/black_knight/walk.anim
+  uploadId: 685897
