@@ -2,18 +2,29 @@ using UnityEngine;
 
 public class OnGameStart : MonoBehaviour
 {
-    [SerializeField] private GameObject prefabToSpawn;
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private GameObject objectDestroyerPrefab;
     [SerializeField] private Vector3 spawnPosition = Vector3.zero;
 
     void Start()
     {
-        if (prefabToSpawn != null)
+        if (playerPrefab != null)
         {
-            Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+            Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
         }
         else
         {
-            Debug.LogWarning("OnGameStart: No prefab assigned to spawn.");
+            Debug.LogWarning("OnGameStart: No player prefab assigned to spawn.");
+        }
+
+        if (bossPrefab != null)
+        {
+            Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("OnGameStart: No boss prefab assigned to spawn.");
         }
     }
 }

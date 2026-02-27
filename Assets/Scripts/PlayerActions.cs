@@ -6,8 +6,10 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float spawnOffset = 0.5f;
+    [SerializeField] private float fireCooldown = 0.2f;
 
     private Vector2 lastMoveDir = Vector2.right;
+    private float nextFireTime;
 
     void Update()
     {
@@ -19,8 +21,9 @@ public class PlayerActions : MonoBehaviour
             lastMoveDir = SnapTo8Directions(input.normalized);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
+            nextFireTime = Time.time + fireCooldown;
             Shoot();
         }
     }
