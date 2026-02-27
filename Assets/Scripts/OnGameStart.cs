@@ -26,5 +26,14 @@ public class OnGameStart : MonoBehaviour
         {
             Debug.LogWarning("OnGameStart: No boss prefab assigned to spawn.");
         }
+
+        if (objectDestroyerPrefab != null)
+        {
+            Instantiate(objectDestroyerPrefab, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("OnGameStart: No object destroyer prefab assigned to spawn.");
+        }
     }
 }
