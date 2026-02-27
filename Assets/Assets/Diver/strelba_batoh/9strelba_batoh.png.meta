@@ -1,14 +1,16 @@
 fileFormatVersion: 2
-guid: 497877696662aee47ba7434638be1ea7
-AssetOrigin:
-  serializedVersion: 1
-  productId: 218050
-  packageName: 2D Simple UI Pack
-  packageVersion: 1.0
-  assetPath: Assets/OArielG/2DSimpleUIPack/Sprites/ui-small-icons.png
-  uploadId: 493490
+guid: 98e14ca6f629243418d13d813d6c7d7b
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3596648874612727000
+    second: 9strelba_batoh_0
+  - first:
+      213: 7793507288770069999
+    second: 9strelba_batoh_1
+  - first:
+      213: -9071655262264050043
+    second: 9strelba_batoh_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -41,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -55,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,14 +74,14 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -114,7 +116,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: VisionOS
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,106 +128,71 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ui-small-icons_0
+      name: 9strelba_batoh_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 21
-        width: 8
-        height: 7
+        x: 99
+        y: 107
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: e619c14b05a6e32879265fb03eb7aa49
-      internalID: -5390123095117124330
+      spriteID: 82366e687e2261ec0800000000000000
+      internalID: -3596648874612727000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-small-icons_1
+      name: 9strelba_batoh_1
       rect:
         serializedVersion: 2
-        x: 20
-        y: 21
-        width: 8
-        height: 7
+        x: 47
+        y: 15
+        width: 54
+        height: 90
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 9ff1d64cec18075bda8a5351b8cb782d
-      internalID: -8880520576215733831
+      spriteID: fe5ce8d5699182c60800000000000000
+      internalID: 7793507288770069999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-small-icons_2
+      name: 9strelba_batoh_2
       rect:
         serializedVersion: 2
-        x: 4
-        y: 4
-        width: 8
-        height: 8
+        x: 107
+        y: 91
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 5f3e9be7d1366ff4e8ade37f60342b81
-      internalID: -3983950619504736678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui-small-icons_3
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 4
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eada5a9ac0dd7b55e979c5450644c7ed
-      internalID: -9176472066801411641
+      spriteID: 58eb2f74a910b1280800000000000000
+      internalID: -9071655262264050043
       vertices: []
       indices: 
       edges: []
@@ -234,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -244,10 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ui-small-icons_0: -5390123095117124330
-      ui-small-icons_1: -8880520576215733831
-      ui-small-icons_2: -3983950619504736678
-      ui-small-icons_3: -9176472066801411641
+      9strelba_batoh_0: -3596648874612727000
+      9strelba_batoh_1: 7793507288770069999
+      9strelba_batoh_2: -9071655262264050043
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
