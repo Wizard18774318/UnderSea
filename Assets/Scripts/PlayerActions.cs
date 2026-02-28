@@ -28,11 +28,13 @@ public class PlayerActions : MonoBehaviour
         if (input.sqrMagnitude > 0f)
         {
             lastMoveDir = SnapTo8Directions(input.normalized);
+        }
 
-            if (lastMoveDir.x != 0f)
-            {
-                lastDirectionX = lastMoveDir.x;
-            }
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float mouseDirX = mouseWorldPos.x - transform.position.x;
+        if (Mathf.Abs(mouseDirX) > 0.01f)
+        {
+            lastDirectionX = Mathf.Sign(mouseDirX);
         }
 
         animator.SetFloat("dir", lastDirectionX);
@@ -51,8 +53,13 @@ public class PlayerActions : MonoBehaviour
     {
         if (projectilePrefab == null) return;
 
-        Vector2 dir = lastMoveDir;
-        Vector3 spawnPos = firePoint != null ? firePoint.position : transform.position;
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorld.z = 0f;
+        Vector3 origin = firePoint != null ? firePoint.position : transform.position;
+        Vector2 dir = ((Vector2)(mouseWorld - origin)).normalized;
+        if (dir == Vector2.zero) dir = lastMoveDir;
+
+        Vector3 spawnPos = origin;
         spawnPos += (Vector3)(dir * spawnOffset);
 
         GameObject projectile = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
