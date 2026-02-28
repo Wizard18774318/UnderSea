@@ -217,8 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27b1fd05f4788b4cab055d8e0433223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 40
-  lungeSpeed: 25
+  maxHp: 25
+  lungeSpeed: 12
   pauseAfterAttack: 0.8
   offScreenDist: 25
   p2SpeedMult: 1.4
@@ -227,12 +227,12 @@ MonoBehaviour:
   repeatSameChance: 0.5
   chainPause: 0.35
   p2ChainMult: 1.6
-  orbitRadius: 11
-  orbitSpeed: 300
+  orbitRadius: 12
+  orbitSpeed: 180
   orbitShrinkRate: 1.3
-  strikeMinRadius: 8
-  strikeSpeed: 20
-  bounceWallY: 10
+  strikeMinRadius: 10
+  strikeSpeed: 10
+  bounceWallY: 20
   shadowInterval: 0.06
   shadowFadeTime: 0.4
   deathEffectPrefab: {fileID: 1820545851295154, guid: a67bd980cc4c09b4cace9d45630e130f, type: 3}

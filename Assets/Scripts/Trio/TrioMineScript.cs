@@ -89,4 +89,22 @@ public class TrioMineScript : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    // ── Chase-mine support ──────────────────────────────────────────────────
+    private Transform _chaseTarget;
+    private float _chaseSpeed;
+
+    /// <summary>Call after Init() to make this mine slowly drift toward the player.</summary>
+    public void SetChase(Transform target, float speed)
+    {
+        _chaseTarget = target;
+        _chaseSpeed  = speed;
+    }
+
+    private void LateUpdate()
+    {
+        if (_chaseTarget == null || _chaseSpeed <= 0f) return;
+        Vector2 dir = ((Vector2)_chaseTarget.position - (Vector2)transform.position).normalized;
+        transform.position += (Vector3)(dir * _chaseSpeed * Time.deltaTime);
+    }
 }

@@ -49,7 +49,7 @@ MonoBehaviour:
   fishBigPrefab: {fileID: 1788738869386804, guid: 2e27a3267463474458484a0ed3948997, type: 3}
   spawnPosition: {x: 20, y: 0, z: 0}
   delayBetweenBosses: 2
-  fishMidScale: 10
+  fishMidScale: 15
   fishDartScale: 12
   fishBigScale: 10
   mouseAimHpMult: 20

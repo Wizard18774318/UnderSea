@@ -217,17 +217,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34494f2c8c4ced240a65a03e527d52b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 30
-  followSpeed: 2.5
-  keepDistance: 3
+  maxHp: 100
+  followSpeed: 4
+  keepDistance: 5
   fishMinionPrefab: {fileID: 1225044215565552, guid: f769db5b789ce934fba213ec6162a134, type: 3}
-  waveCooldown: 6
-  waveSize: 7
+  waveCooldown: 10
+  waveSize: 5
   p2CooldownMult: 0.6
-  p2ExtraFish: 3
-  minionScale: 6
+  p2ExtraFish: 2
+  minionScale: 7
   vSpreadAngle: 30
   vSpacing: 1
-  circleRadius: 2
+  circleRadius: 3
+  flankingOffset: 20
   deathEffectPrefab: {fileID: 1820545851295154, guid: a67bd980cc4c09b4cace9d45630e130f, type: 3}
   deathEffectScale: 10

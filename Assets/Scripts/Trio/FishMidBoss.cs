@@ -58,7 +58,7 @@ public class FishMidBoss : MonoBehaviour
     private SpriteRenderer _sr;
     private List<GameObject> _minions = new List<GameObject>();
 
-    private enum Formation { V, Circle, Spiral, Flanking, Pincer }
+    private enum Formation { V, Circle, Spiral, Pincer }
     private Formation _nextFormation = Formation.V;
     private int _formationIndex = 0;
 
@@ -161,7 +161,7 @@ public class FishMidBoss : MonoBehaviour
 
         // Rotate through all 5 formations
         Formation[] pool = _phase2
-            ? new[] { Formation.V, Formation.Circle, Formation.Spiral, Formation.Flanking, Formation.Pincer }
+            ? new[] { Formation.V, Formation.Circle, Formation.Spiral, Formation.Pincer }
             : new[] { Formation.V, Formation.Circle, Formation.Spiral };
 
         Formation f = pool[_formationIndex % pool.Length];
@@ -172,7 +172,6 @@ public class FishMidBoss : MonoBehaviour
             case Formation.V:        SpawnVFormation(count);      break;
             case Formation.Circle:   SpawnCircleFormation(count); break;
             case Formation.Spiral:   StartCoroutine(SpawnSpiralFormation(count)); break;
-            case Formation.Flanking: SpawnFlankingFormation(count); break;
             case Formation.Pincer:   SpawnPincerFormation(count);   break;
         }
     }
@@ -227,35 +226,6 @@ public class FishMidBoss : MonoBehaviour
             bool homing = (Random.value > 0.5f);
             SpawnMinion(spawnPos, dir, followPlayer: homing);
             yield return new WaitForSeconds(0.12f);
-        }
-    }
-
-    /// <summary>Two groups appear to the left and right of the player and converge — always home.</summary>
-    private void SpawnFlankingFormation(int count)
-    {
-        if (_player == null) return;
-
-        int half = count / 2;
-        float spread = 1.5f;
-
-        Vector2 playerPos = _player.position;
-        Vector2 towardPlayer = ((Vector2)transform.position - playerPos).normalized;
-        Vector2 perp = new Vector2(-towardPlayer.y, towardPlayer.x);
-
-        for (int i = 0; i < half; i++)
-        {
-            Vector3 spawnPos = (Vector3)playerPos + (Vector3)(perp * circleRadius)
-                               + Vector3.up * (i - half / 2f) * spread;
-            Vector2 dir = (playerPos - (Vector2)spawnPos).normalized;
-            SpawnMinion(spawnPos, dir, followPlayer: true);
-        }
-
-        for (int i = 0; i < count - half; i++)
-        {
-            Vector3 spawnPos = (Vector3)playerPos - (Vector3)(perp * circleRadius)
-                               + Vector3.up * (i - (count - half) / 2f) * spread;
-            Vector2 dir = (playerPos - (Vector2)spawnPos).normalized;
-            SpawnMinion(spawnPos, dir, followPlayer: true);
         }
     }
 
