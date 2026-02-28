@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     private float dashTimer;
     private float dashCooldownTimer;
 
+    // Grace period: prevents diagonal→cardinal snap when releasing keys slightly apart
+    private const float DirectionGracePeriod = 0.08f;
+    private float directionGraceTimer;
+    private bool wasDiagonal;
+
     // 45° snap directions
     private static readonly Vector2[] SnapDirs =
     {
@@ -35,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        rb   = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         _cam = Camera.main;
     }
 
@@ -47,8 +52,40 @@ public class PlayerMovement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY);
 
-        if (moveInput.sqrMagnitude > 0.0001f)
+        bool isDiagonal = Mathf.Abs(moveX) > 0.01f && Mathf.Abs(moveY) > 0.01f;
+        bool isCardinal = !isDiagonal && moveInput.sqrMagnitude > 0.0001f;
+
+        if (isDiagonal)
+        {
+            // Diagonal input: update direction immediately, reset grace
             lastMoveDirection = moveInput.normalized;
+            wasDiagonal = true;
+            directionGraceTimer = 0f;
+        }
+        else if (isCardinal && wasDiagonal)
+        {
+            // Just went from diagonal to cardinal — one key released early
+            directionGraceTimer += Time.deltaTime;
+            if (directionGraceTimer >= DirectionGracePeriod)
+            {
+                // Held single key long enough, accept new direction
+                lastMoveDirection = moveInput.normalized;
+                wasDiagonal = false;
+                directionGraceTimer = 0f;
+            }
+            // else: keep the old diagonal lastMoveDirection
+        }
+        else if (isCardinal)
+        {
+            // Pure cardinal input (not coming from diagonal)
+            lastMoveDirection = moveInput.normalized;
+        }
+        else
+        {
+            // No input — reset grace tracking
+            wasDiagonal = false;
+            directionGraceTimer = 0f;
+        }
 
         if (dashCooldownTimer > 0f)
             dashCooldownTimer = Mathf.Max(0f, dashCooldownTimer - Time.deltaTime);
@@ -100,13 +137,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // Snap to nearest 45° based on movement direction
-            if (moveInput.sqrMagnitude < 0.0001f) return;
+            // Snap to nearest 45° based on last movement direction
+            if (lastMoveDirection.sqrMagnitude < 0.0001f) return;
             Vector2 best = SnapDirs[0];
             float bestDot = -2f;
             foreach (Vector2 sd in SnapDirs)
             {
-                float dot = Vector2.Dot(moveInput.normalized, sd);
+                float dot = Vector2.Dot(lastMoveDirection.normalized, sd);
                 if (dot > bestDot) { bestDot = dot; best = sd; }
             }
             angle = Mathf.Atan2(-best.x, best.y) * Mathf.Rad2Deg;
