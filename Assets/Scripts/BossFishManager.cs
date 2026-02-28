@@ -29,6 +29,11 @@ public class BossFishManager : MonoBehaviour
     private bool  _phase2Triggered;
     private GameObject[] spawnedAttack = new GameObject[3];
 
+    public bool IsShielded { get; private set; }
+
+    public void ActivateShield()   { IsShielded = true; }
+    public void DeactivateShield() { IsShielded = false; }
+
     private BossFishMovement _movement;
 
     private Vector3 RandomOffset() =>
@@ -51,6 +56,7 @@ public class BossFishManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (IsShielded) return;
         if (other.CompareTag("Projectile"))
         {
             TakeDamage(other.GetComponent<ProjectileMovement>().getDamageAmount());

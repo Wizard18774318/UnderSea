@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class BossFishMovement : MonoBehaviour
@@ -26,16 +27,20 @@ public class BossFishMovement : MonoBehaviour
     [SerializeField] private float dashSpeed       = 28f;
     [SerializeField] private float dashMoveSpeed   = 10f;
     [SerializeField] private float dashEdgePadding = 0.5f;
-    [SerializeField] private int   dashTotalCount  = 4;
+    [SerializeField] private int   dashMinCount    = 2;
+    [SerializeField] private int   dashMaxCount    = 5;
 
     [Header("Phase 2 - Middle Pass")]
-    [SerializeField] private float middlePassSpeed       = 13f;
+    [SerializeField] private float middlePassSpeed        = 13f;
     [SerializeField] private float middlePassDropInterval = 0.35f;
+    [SerializeField] private int   middlePassMinRepeats   = 1;
+    [SerializeField] private int   middlePassMaxRepeats   = 3;
     [SerializeField] private GameObject rowFishPrefab;
     [SerializeField] private float rowFishSpeed = 9f;
 
     [Header("Phase 2 - Center Fire")]
     [SerializeField] private GameObject redBubblePrefab;
+    [SerializeField] private GameObject shieldPrefab;
     [SerializeField] private int   bubbleCount        = 12;
     [SerializeField] private float bubbleOutSpeed     = 6f;
     [SerializeField] private float bubbleReturnDelay  = 2.5f;
@@ -44,9 +49,19 @@ public class BossFishMovement : MonoBehaviour
     [SerializeField] private float bubbleWaveInterval = 0.7f;
     [SerializeField] private float centerFireHold     = 0.5f;
 
+    [Header("Phase 2 - Ambush Sweep")]
+    [SerializeField] private GameObject ambushFishPrefab;
+    [SerializeField] private float ambushSweepSpeed   = 10f;
+    [SerializeField] private float ambushDropInterval = 0.45f;
+    [SerializeField] private float ambushEdgeOffset   = 0.5f;
+    [SerializeField] private int   ambushMinRepeats   = 1;
+    [SerializeField] private int   ambushMaxRepeats   = 3;
+
     [Header("Phase 2 - Patrol")]
-    [SerializeField] private float phase2PatrolSpeed   = 7f;
-    [SerializeField] private float phase2PatrolDuration = 5f;
+    [SerializeField] private float phase2PatrolSpeed       = 7f;
+    [SerializeField] private float phase2PatrolMinDuration = 3f;
+    [SerializeField] private float phase2PatrolMaxDuration = 7f;
+    [SerializeField] private float phase2PatrolYRange      = 0.6f;  // fraction of half-height to wander
 
     private enum State
     {
@@ -55,6 +70,7 @@ public class BossFishMovement : MonoBehaviour
         TripleDashPosition, TripleDash,
         MiddlePassPosition, MiddlePass,
         CenterFirePosition, CenterFire,
+        AmbushPosition, AmbushSweep,
         Phase2Patrol
     }
 
@@ -73,21 +89,36 @@ public class BossFishMovement : MonoBehaviour
     private bool    _sweepGoingRight;
 
     private int     _dashCount;
+    private int     _dashTarget;
     private float   _currentDashY;
     private bool    _dashGoingRight;
 
     private bool    _middlePassGoingRight;
+    private int     _middlePassCount;
+    private int     _middlePassTarget;
 
     private float   _centerFireTimer;
     private float   _waveTimer;
     private int     _wavesFired;
     private int     _phase2PatternIndex;
+    private int[]   _patternQueue;
+    private float   _phase2PatrolYTarget;
+
+    private bool                     _ambushGoingRight;
+    private int                      _ambushCount;
+    private int                      _ambushTarget;
+    private List<BossFishAmbushFish>  _ambushFish     = new List<BossFishAmbushFish>();
+
+    private GameObject               _shieldInstance;
+    private List<RedOxygenBubble>    _activeBubbles  = new List<RedOxygenBubble>();
+    private BossFishManager          _manager;
 
     private void Awake()
     {
         _rb           = GetComponent<Rigidbody2D>();
         _sr           = GetComponentInChildren<SpriteRenderer>();
         _cam          = Camera.main;
+        _manager      = GetComponent<BossFishManager>();
         _wobbleOffset = Random.Range(0f, Mathf.PI * 2f);
         _patrolTimer  = patrolDuration;
     }
@@ -116,6 +147,8 @@ public class BossFishMovement : MonoBehaviour
             case State.MiddlePass:          UpdateMiddlePass();          break;
             case State.CenterFirePosition:  UpdateCenterFirePosition();  break;
             case State.CenterFire:          UpdateCenterFire();          break;
+            case State.AmbushPosition:      UpdateAmbushPosition();      break;
+            case State.AmbushSweep:         UpdateAmbushSweep();         break;
             case State.Phase2Patrol:        UpdatePhase2Patrol();        break;
         }
     }
@@ -225,19 +258,37 @@ public class BossFishMovement : MonoBehaviour
 
     private void StartNextPhase2Pattern()
     {
-        switch (_phase2PatternIndex % 4)
+        if (_patternQueue == null || _phase2PatternIndex >= _patternQueue.Length)
+        {
+            _patternQueue       = ShuffledPatterns();
+            _phase2PatternIndex = 0;
+        }
+        int next = _patternQueue[_phase2PatternIndex++];
+        switch (next)
         {
             case 0: EnterTripleDash();   break;
             case 1: EnterMiddlePass();   break;
             case 2: EnterCenterFire();   break;
-            case 3: EnterPhase2Patrol(); break;
+            case 3: EnterAmbushSweep();  break;
+            case 4: EnterPhase2Patrol(); break;
         }
-        _phase2PatternIndex++;
+    }
+
+    private int[] ShuffledPatterns()
+    {
+        int[] p = new int[] { 0, 1, 2, 3, 4 };
+        for (int i = p.Length - 1; i > 0; i--)
+        {
+            int j   = Random.Range(0, i + 1);
+            int tmp = p[i]; p[i] = p[j]; p[j] = tmp;
+        }
+        return p;
     }
 
     private void EnterTripleDash()
     {
         _dashCount      = 0;
+        _dashTarget     = Random.Range(dashMinCount, dashMaxCount + 1);
         _dashGoingRight = Random.value > 0.5f;
         _currentDashY   = RandomDashY();
         _state = State.TripleDashPosition;
@@ -289,7 +340,7 @@ public class BossFishMovement : MonoBehaviour
             _dashCount++;
             _dashGoingRight = Random.value > 0.5f;
             _currentDashY   = RandomDashY();
-            if (_dashCount >= dashTotalCount)
+            if (_dashCount >= _dashTarget)
                 StartNextPhase2Pattern();
             else
                 _state = State.TripleDashPosition;
@@ -299,6 +350,8 @@ public class BossFishMovement : MonoBehaviour
     private void EnterMiddlePass()
     {
         _middlePassGoingRight = Random.value > 0.5f;
+        _middlePassCount      = 0;
+        _middlePassTarget     = Random.Range(middlePassMinRepeats, middlePassMaxRepeats + 1);
         _state = State.MiddlePassPosition;
     }
 
@@ -342,7 +395,15 @@ public class BossFishMovement : MonoBehaviour
         bool pastEnd = _middlePassGoingRight
             ? transform.position.x >= endX
             : transform.position.x <= endX;
-        if (pastEnd) StartNextPhase2Pattern();
+        if (pastEnd)
+        {
+            _middlePassCount++;
+            _middlePassGoingRight = !_middlePassGoingRight;
+            if (_middlePassCount >= _middlePassTarget)
+                StartNextPhase2Pattern();
+            else
+                _state = State.MiddlePassPosition;
+        }
     }
 
     private void EnterCenterFire()
@@ -361,36 +422,160 @@ public class BossFishMovement : MonoBehaviour
         {
             transform.position = center;
             _velocity          = Vector2.zero;
-            _centerFireTimer   = centerFireHold;
+            _centerFireTimer   = -1f;   // negative = waiting for bubbles
             _wavesFired        = 0;
             _waveTimer         = 0f;
+            _activeBubbles.Clear();
+            if (shieldPrefab != null)
+                _shieldInstance = Instantiate(shieldPrefab, transform);
+            _manager?.ActivateShield();
             _state = State.CenterFire;
         }
     }
 
     private void UpdateCenterFire()
     {
-        _velocity     = Vector2.zero;
-        _waveTimer   -= Time.deltaTime;
-        if (_waveTimer <= 0f && _wavesFired < bubbleWaveCount)
+        _velocity = Vector2.zero;
+
+        // Phase 1: fire all waves
+        if (_wavesFired < bubbleWaveCount)
         {
-            _waveTimer = bubbleWaveInterval;
-            FireRedBubbles(_wavesFired);
-            _wavesFired++;
+            _waveTimer -= Time.deltaTime;
+            if (_waveTimer <= 0f)
+            {
+                _waveTimer = bubbleWaveInterval;
+                FireRedBubbles(_wavesFired);
+                _wavesFired++;
+            }
+            return;
         }
 
-        if (_wavesFired >= bubbleWaveCount)
+        // Phase 2: wait until every bubble is destroyed
+        if (_centerFireTimer < 0f)
         {
-            _centerFireTimer -= Time.deltaTime;
-            if (_centerFireTimer <= 0f)
-                StartNextPhase2Pattern();
+            _activeBubbles.RemoveAll(b => b == null);
+            if (_activeBubbles.Count == 0)
+            {
+                // All bubbles gone — drop shield and start exit hold
+                if (_shieldInstance != null) { Destroy(_shieldInstance); _shieldInstance = null; }
+                _manager?.DeactivateShield();
+                _centerFireTimer = centerFireHold;
+            }
+            return;
         }
+
+        // Phase 3: brief hold after shield drops
+        _centerFireTimer -= Time.deltaTime;
+        if (_centerFireTimer <= 0f)
+            StartNextPhase2Pattern();
+    }
+
+    private void EnterAmbushSweep()
+    {
+        _ambushGoingRight = Random.value > 0.5f;
+        _ambushCount      = 0;
+        _ambushTarget     = Random.Range(ambushMinRepeats, ambushMaxRepeats + 1);
+        _ambushFish.Clear();
+        _state = State.AmbushPosition;
+    }
+
+    private void UpdateAmbushPosition()
+    {
+        float halfW  = _cam.orthographicSize * _cam.aspect;
+        float camX   = _cam.transform.position.x;
+        float startX = _ambushGoingRight
+            ? camX - halfW - sweepEdgePadding
+            : camX + halfW + sweepEdgePadding;
+        Vector2 target = new Vector2(startX, _cam.transform.position.y);
+
+        MoveToward(target, ambushSweepSpeed);
+        if (Mathf.Abs(_velocity.x) > 0.1f)
+            SetFacing(_velocity.x > 0);
+
+        if (Vector2.Distance(transform.position, target) < 0.25f)
+        {
+            _dropTimer = 0f;
+            _state = State.AmbushSweep;
+        }
+    }
+
+    private void UpdateAmbushSweep()
+    {
+        float halfW = _cam.orthographicSize * _cam.aspect;
+        float camX  = _cam.transform.position.x;
+        float endX  = _ambushGoingRight
+            ? camX + halfW + sweepEdgePadding
+            : camX - halfW - sweepEdgePadding;
+
+        _velocity = new Vector2((_ambushGoingRight ? 1 : -1) * ambushSweepSpeed, 0f);
+        SetFacing(_ambushGoingRight);
+
+        _dropTimer -= Time.deltaTime;
+        if (_dropTimer <= 0f && spawnEnabled && ambushFishPrefab != null)
+        {
+            _dropTimer = ambushDropInterval;
+            SpawnAmbushPair();
+        }
+
+        bool pastEnd = _ambushGoingRight
+            ? transform.position.x >= endX
+            : transform.position.x <= endX;
+
+        if (pastEnd)
+        {
+            LaunchAllAmbushFish();
+            _ambushCount++;
+            if (_ambushCount >= _ambushTarget)
+            {
+                StartNextPhase2Pattern();
+            }
+            else
+            {
+                _ambushGoingRight = !_ambushGoingRight;
+                _ambushFish.Clear();
+                _state = State.AmbushPosition;
+            }
+        }
+    }
+
+    private void SpawnAmbushPair()
+    {
+        float halfH     = _cam.orthographicSize;
+        float camY      = _cam.transform.position.y;
+        float topY      = camY + halfH + ambushEdgeOffset;
+        float bottomY   = camY - halfH - ambushEdgeOffset;
+        float x         = transform.position.x;
+
+        var topObj  = Instantiate(ambushFishPrefab, new Vector3(x, topY), Quaternion.identity);
+        var topFish = topObj.GetComponent<BossFishAmbushFish>();
+        if (topFish != null) _ambushFish.Add(topFish);
+
+        var botObj  = Instantiate(ambushFishPrefab, new Vector3(x, bottomY), Quaternion.identity);
+        var botFish = botObj.GetComponent<BossFishAmbushFish>();
+        if (botFish != null) _ambushFish.Add(botFish);
+    }
+
+    private void LaunchAllAmbushFish()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector2 targetPos = player != null
+            ? (Vector2)player.transform.position
+            : (Vector2)_cam.transform.position;
+
+        foreach (var fish in _ambushFish)
+        {
+            if (fish != null) fish.Launch(targetPos);
+        }
+        _ambushFish.Clear();
     }
 
     private void EnterPhase2Patrol()
     {
-        _patrolTimer = phase2PatrolDuration;
-        _state       = State.Phase2Patrol;
+        _patrolTimer         = Random.Range(phase2PatrolMinDuration, phase2PatrolMaxDuration);
+        _phase2PatrolYTarget = _cam.transform.position.y +
+                               Random.Range(-_cam.orthographicSize * phase2PatrolYRange,
+                                             _cam.orthographicSize * phase2PatrolYRange);
+        _state = State.Phase2Patrol;
     }
 
     private void UpdatePhase2Patrol()
@@ -403,8 +588,17 @@ public class BossFishMovement : MonoBehaviour
         if (_patrolDir > 0 && transform.position.x >= rightEdge) _patrolDir = -1;
         if (_patrolDir < 0 && transform.position.x <= leftEdge)  _patrolDir =  1;
 
-        float wobble = Mathf.Sin(Time.time * wobbleFrequency * 1.5f + _wobbleOffset) * wobbleAmplitude * 2f;
-        _velocity = new Vector2(_patrolDir * phase2PatrolSpeed, wobble);
+        // Drift toward random Y target; pick a new one when close
+        if (Mathf.Abs(transform.position.y - _phase2PatrolYTarget) < 0.3f)
+        {
+            _phase2PatrolYTarget = _cam.transform.position.y +
+                                   Random.Range(-_cam.orthographicSize * phase2PatrolYRange,
+                                                 _cam.orthographicSize * phase2PatrolYRange);
+        }
+        float yDiff = _phase2PatrolYTarget - transform.position.y;
+        float yVel  = Mathf.Clamp(yDiff * 4f, -phase2PatrolSpeed * 0.5f, phase2PatrolSpeed * 0.5f);
+
+        _velocity = new Vector2(_patrolDir * phase2PatrolSpeed, yVel);
         SetFacing(_patrolDir > 0);
 
         _patrolTimer -= Time.deltaTime;
@@ -446,7 +640,10 @@ public class BossFishMovement : MonoBehaviour
             var obj    = Instantiate(redBubblePrefab, transform.position, Quaternion.identity);
             var bubble = obj.GetComponent<RedOxygenBubble>();
             if (bubble != null)
+            {
                 bubble.Init(dir, bubbleOutSpeed, bubbleReturnDelay, curl);
+                _activeBubbles.Add(bubble);
+            }
         }
     }
 
