@@ -17,7 +17,6 @@ public class RandomFishMover : MonoBehaviour
     {
         transform.Translate(moveDir * speed * Time.deltaTime, Space.World);
 
-        // destroy once it has passed the target
         if (Vector2.Dot(moveDir, (Vector2)transform.position - targetPos) >= 0f)
         {
             Destroy(gameObject);

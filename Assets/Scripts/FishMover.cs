@@ -28,7 +28,6 @@ public class FishMover : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // player damage is handled by PlayerManager on the player side
             Destroy(gameObject);
         }
     }

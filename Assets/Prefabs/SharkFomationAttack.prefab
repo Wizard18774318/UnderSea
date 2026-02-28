@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &700517797846378998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7257302229763791367}
+  - component: {fileID: -1176476456484170519}
+  m_Layer: 0
+  m_Name: SharkFomationAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7257302229763791367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700517797846378998}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1176476456484170519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700517797846378998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd00adc8ececef46b7d66786ef43338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishSize: 0.5
+  moveSpeed: 6
+  moveDirection: {x: -1, y: 0}
+  fishBody: {fileID: 7362046228159835213, guid: d9d2c7c38a3f1b94192dd47e096c4c9d, type: 3}
+  fishBelly: {fileID: 7362046228159835213, guid: 51114cac3b40b9941bf3766f061d8bb4, type: 3}
+  fishFin: {fileID: 7362046228159835213, guid: 0095cc9b6ea3eb8418e065c51343fcb4, type: 3}
+  fishOutline: {fileID: 7362046228159835213, guid: e7123d63a85b92a4e81d8a34a5a2c06f, type: 3}
+  fishStripe: {fileID: 7362046228159835213, guid: b0d16c9994d58764cbd0ec718fd62300, type: 3}

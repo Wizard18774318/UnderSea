@@ -25,8 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right arrows
-        float moveY = Input.GetAxisRaw("Vertical");   // W/S or Up/Down arrows
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY);
 
         if (moveInput.sqrMagnitude > 0.0001f)
@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
         float ramp = hasInput ? acceleration : deceleration;
         float logStep = Mathf.Log(1f + ramp * Time.fixedDeltaTime);
 
-        // Logarithmic step makes acceleration feel quick at the start and slower as it approaches top speed
         Vector2 delta = targetVelocity - currentVelocity;
         if (delta.sqrMagnitude > 0.0001f)
         {

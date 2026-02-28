@@ -39,7 +39,6 @@ public class RandomFishSpawner : MonoBehaviour
     {
         if (fishPrefab == null) { ScheduleNextSpawn(); return; }
 
-        // pick a random side: 0=left, 1=right, 2=bottom, 3=top
         int side = Random.Range(0, 4);
 
         Vector3 camPos = mainCam.transform.position;
@@ -53,22 +52,22 @@ public class RandomFishSpawner : MonoBehaviour
 
         switch (side)
         {
-            case 0: // left → right
+            case 0:
                 randAlongEdge = Random.Range(camPos.y - halfH, camPos.y + halfH);
                 spawnPos = new Vector2(camPos.x - halfW - screenPadding, randAlongEdge);
                 targetPos = new Vector2(camPos.x + halfW + screenPadding, Random.Range(camPos.y - halfH, camPos.y + halfH));
                 break;
-            case 1: // right → left
+            case 1:
                 randAlongEdge = Random.Range(camPos.y - halfH, camPos.y + halfH);
                 spawnPos = new Vector2(camPos.x + halfW + screenPadding, randAlongEdge);
                 targetPos = new Vector2(camPos.x - halfW - screenPadding, Random.Range(camPos.y - halfH, camPos.y + halfH));
                 break;
-            case 2: // bottom → top
+            case 2:
                 randAlongEdge = Random.Range(camPos.x - halfW, camPos.x + halfW);
                 spawnPos = new Vector2(randAlongEdge, camPos.y - halfH - screenPadding);
                 targetPos = new Vector2(Random.Range(camPos.x - halfW, camPos.x + halfW), camPos.y + halfH + screenPadding);
                 break;
-            default: // top → bottom
+            default:
                 randAlongEdge = Random.Range(camPos.x - halfW, camPos.x + halfW);
                 spawnPos = new Vector2(randAlongEdge, camPos.y + halfH + screenPadding);
                 targetPos = new Vector2(Random.Range(camPos.x - halfW, camPos.x + halfW), camPos.y - halfH - screenPadding);
@@ -81,7 +80,6 @@ public class RandomFishSpawner : MonoBehaviour
 
         GameObject fish = Instantiate(fishPrefab, new Vector3(spawnPos.x, spawnPos.y, 0f), Quaternion.identity);
 
-        // random sprite
         if (fishSprites != null && fishSprites.Length > 0)
         {
             SpriteRenderer sr = fish.GetComponent<SpriteRenderer>();
@@ -89,16 +87,13 @@ public class RandomFishSpawner : MonoBehaviour
                 sr.sprite = fishSprites[Random.Range(0, fishSprites.Length)];
         }
 
-        // random scale, flip x based on direction
         float scaleX = dir.x < 0f ? -scale : scale;
         fish.transform.localScale = new Vector3(scaleX, scale, 1f);
 
-        // rotation: face travel direction (use abs dir for flipped sprites)
         Vector2 absDir = new Vector2(Mathf.Abs(dir.x), dir.y);
         float angle = Mathf.Atan2(absDir.y, absDir.x) * Mathf.Rad2Deg;
         fish.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-        // add auto-destroy when off screen
         RandomFishMover mover = fish.GetComponent<RandomFishMover>();
         if (mover != null)
             mover.Init(dir, speed, targetPos);

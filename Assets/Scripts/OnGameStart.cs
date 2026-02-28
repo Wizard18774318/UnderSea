@@ -5,6 +5,7 @@ public class OnGameStart : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject bossPrefab;
     [SerializeField] private GameObject objectDestroyerPrefab;
+    [SerializeField] private GameObject fishHuffSpawnPrefab;
     [SerializeField] private Vector3 spawnPosition = Vector3.zero;
 
     void Start()
@@ -34,6 +35,15 @@ public class OnGameStart : MonoBehaviour
         else
         {
             Debug.LogWarning("OnGameStart: No object destroyer prefab assigned to spawn.");
+        }
+
+        if (fishHuffSpawnPrefab != null)
+        {
+            Instantiate(fishHuffSpawnPrefab, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("OnGameStart: No fish huff spawn prefab assigned to spawn.");
         }
     }
 }

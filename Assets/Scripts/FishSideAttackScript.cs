@@ -41,7 +41,6 @@ public class FishSideAttackScript : MonoBehaviour
             Vector3 spawnPos = new Vector3(spawnX, y, 0f);
             GameObject fish = Instantiate(fishPrefab, spawnPos, Quaternion.identity);
 
-            // assign random sprite
             if (fishSprites != null && fishSprites.Length > 0)
             {
                 SpriteRenderer sr = fish.GetComponent<SpriteRenderer>();
