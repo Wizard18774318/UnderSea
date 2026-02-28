@@ -3185,9 +3185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnEnabled: 1
   oxygenBubblePrefab: {fileID: 7624469858195668256, guid: 45fab7873e6f5524893a953d8cbf1f8a, type: 3}
-  spawnInterval: 10
+  spawnInterval: 7.5
   maxBubblesAtOnce: 5
-  bubbleOxygenCapacity: 60
+  bubbleOxygenCapacity: 110
   bubbleCapacityMinMultiplier: 1
   bubbleCapacityMaxMultiplier: 1.5
   bubbleOxygenRate: 20
