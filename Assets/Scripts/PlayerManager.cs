@@ -12,23 +12,28 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float invincibilityDuration = 1.5f;
 
     [Header("Damage")]
-    [SerializeField] private int projectileDamage  = 4;   // 4 quarters = 1 full heart
-    [SerializeField] private int contactDamage     = 4;   // boss body contact
+    [SerializeField] private int projectileDamage = 4;   // 4 quarters = 1 full heart
+    [SerializeField] private int contactDamage = 4;   // boss body contact
     [SerializeField] private int suffocationDamage = 1;   // 1 quarter-heart per tick
 
     [Header("Oxygen Drain")]
-    [SerializeField] private float oxygenDrainRate         = 10f; // oxygen per second
+    [SerializeField] private float oxygenDrainRate = 10f; // oxygen per second
     [SerializeField] private float suffocationDamageInterval = 1f;
 
     [Header("Blink on Hit")]
     [SerializeField] private float blinkInterval = 0.08f;
 
+    [Header("Death Float")]
+    [SerializeField] private float deathBobAmplitude = 0.15f;
+    [SerializeField] private float deathBobSpeed = 1.5f;
+
     [Header("Oxygen Tint")]
     [SerializeField] private SpriteRenderer[] tintTargets;
     [SerializeField] private Color fullOxygenColor = Color.white;
-    [SerializeField] private Color lowOxygenColor  = new Color(0.4f, 0.65f, 0.89f);
+    [SerializeField] private Color lowOxygenColor = new Color(0.4f, 0.65f, 0.89f);
 
-    private bool  isInvincible;
+    private bool isInvincible;
+    private bool isDead;
     private float invincibilityTimer;
     private float suffocationTimer;
     private Coroutine _blinkCoroutine;
@@ -57,6 +62,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        if (isDead) return;
+
         // Invincibility countdown
         if (isInvincible)
         {
@@ -92,6 +99,8 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDead) return;
+
         Debug.Log($"[Player] OnTriggerEnter2D fired — other: '{other.gameObject.name}' tag: '{other.tag}' hasBossMovement: {other.GetComponentInParent<BossFishMovement>() != null} isInvincible: {isInvincible}");
 
         if (isInvincible) return;
@@ -116,7 +125,7 @@ public class PlayerManager : MonoBehaviour
     /// Goes through invincibility frames so the player can't be double-hit.</summary>
     public bool TakeMeleeDamage(float amount)
     {
-        if (isInvincible) return false;
+        if (isDead || isInvincible) return false;
         TakeDamage((int)amount);
         return true;
     }
@@ -129,7 +138,7 @@ public class PlayerManager : MonoBehaviour
 
     private void TakeDamage(int amount)
     {
-        isInvincible       = true;
+        isInvincible = true;
         invincibilityTimer = invincibilityDuration;
         StartBlinking();
         float hpBefore = PlayerStatsManager.Instance?.CurrentHp ?? 0f;
@@ -178,8 +187,50 @@ public class PlayerManager : MonoBehaviour
 
     private void HandleDeath()
     {
+        if (isDead) return;
+        isDead = true;
         Debug.Log("Player died!");
-        Destroy(gameObject);
+
+        StopBlinking();
+
+        // Disable gameplay components so the player no longer moves or shoots
+        var movement = GetComponent<PlayerMovement>();
+        if (movement != null) movement.enabled = false;
+
+        var actions = GetComponent<PlayerActions>();
+        if (actions != null) actions.enabled = false;
+        var rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Kinematic;
+        }
+
+        foreach (var col in GetComponentsInChildren<Collider2D>())
+            col.enabled = false;
+
+        // Rotate player so animation is ready for this direction
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+        // Trigger death animation
+        var animator = GetComponent<Animator>();
+        if (animator != null)
+            animator.SetTrigger("isDead");
+
+        // Gentle floating bob
+        StartCoroutine(DeathBobCoroutine());
+    }
+
+    private IEnumerator DeathBobCoroutine()
+    {
+        Vector3 origin = transform.position;
+        float t = 0f;
+        while (true)
+        {
+            t += Time.deltaTime * deathBobSpeed;
+            transform.position = origin + Vector3.up * Mathf.Sin(t) * deathBobAmplitude;
+            yield return null;
+        }
     }
 
     private void UpdateOxygenTint()
