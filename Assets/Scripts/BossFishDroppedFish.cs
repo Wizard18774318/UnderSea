@@ -7,6 +7,7 @@ public class BossFishDroppedFish : MonoBehaviour
     [SerializeField] private float maxSpeed      = 16f;
     [SerializeField] private float damage        = 2f;
     [SerializeField] private float offScreenKill = 3f;
+    [SerializeField] private float spriteAngleOffset = 0f; // adjust if sprite isn't facing right by default
 
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
@@ -34,7 +35,8 @@ public class BossFishDroppedFish : MonoBehaviour
         maxSpeed     = speed;
         _initialised = true;
 
-        if (_sr != null) _sr.flipX = _moveDir.x < 0f;
+        float angle = Mathf.Atan2(_moveDir.y, _moveDir.x) * Mathf.Rad2Deg + spriteAngleOffset;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     private void Update()

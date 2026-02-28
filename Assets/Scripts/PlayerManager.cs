@@ -84,6 +84,20 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("[Player] Hit by boss fish body!");
             TakeDamage(contactDamage);
         }
+        else if (other.GetComponentInParent<UndeadPirateMovement>() != null)
+        {
+            Debug.Log("[Player] Hit by pirate body!");
+            TakeDamage(contactDamage);
+        }
+    }
+
+    /// <summary>Called by enemies that handle their own trigger detection (e.g. Pirate lunge).
+    /// Goes through invincibility frames so the player can't be double-hit.</summary>
+    public bool TakeMeleeDamage(float amount)
+    {
+        if (isInvincible) return false;
+        TakeDamage((int)amount);
+        return true;
     }
 
     /// <summary>Called by OxygenBubble while the player is inside.</summary>
