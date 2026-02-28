@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5642166620668676796}
   - component: {fileID: 8039713461356165573}
   - component: {fileID: 7344785709234923402}
+  - component: {fileID: 7420429950448127512}
   m_Layer: 0
   m_Name: UndeadPirate
   m_TagString: Boss
@@ -177,5 +178,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   fishAttackLeftPrefab: {fileID: 7850431243823500127, guid: 3f26505ee8e476946ab02a25e0561490, type: 3}
+  spawnFishAttackLeft: 1
   fishAttackRightPrefab: {fileID: 7850431243823500127, guid: 36c82a890eab4a5428ec9155d58d54cc, type: 3}
+  spawnFishAttackRight: 1
   fishRandomConstantAttackPrefab: {fileID: 5263700649796700719, guid: aaa96b5b38edaf146aad0caf334dd6a6, type: 3}
+  spawnFishRandomConstantAttack: 1
+  spawnNoiseRadius: 1.5
+--- !u!114 &7420429950448127512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4784044733322874709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e66a736843f9f44862ecf26dc955be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aggroRange: 100
+  deAggroRange: 100
+  moveSpeed: 4
+  acceleration: 6
+  rotateToFacePlayer: 1
+  meleeRange: 1.6
+  meleeDamage: 4
+  windUpDuration: 0.4
+  lungeSpeed: 9
+  lungeDuration: 0.2
+  recoverDuration: 0.6
+  attackCooldown: 1.5
+  wobbleAmplitude: 0.15
+  wobbleFrequency: 1.8

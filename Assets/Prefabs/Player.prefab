@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -6808974612561483255}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,9 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b5ededa8a9bb34084752ead744a4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 12
   invincibilityDuration: 1.5
-  maxOxygen: 100
+  projectileDamage: 4
+  suffocationDamage: 1
   oxygenDrainRate: 2.5
   suffocationDamageInterval: 1.5
 --- !u!50 &1145704073093830955
