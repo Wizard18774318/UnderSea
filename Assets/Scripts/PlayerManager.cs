@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -19,6 +20,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float oxygenDrainRate         = 10f; // oxygen per second
     [SerializeField] private float suffocationDamageInterval = 1f;
 
+    [Header("Blink on Hit")]
+    [SerializeField] private float blinkInterval = 0.08f;
+
     [Header("Oxygen Tint")]
     [SerializeField] private SpriteRenderer[] tintTargets;
     [SerializeField] private Color fullOxygenColor = Color.white;
@@ -27,6 +31,8 @@ public class PlayerManager : MonoBehaviour
     private bool  isInvincible;
     private float invincibilityTimer;
     private float suffocationTimer;
+    private Coroutine _blinkCoroutine;
+    private SpriteRenderer[] _blinkRenderers;
 
     private void Start()
     {
@@ -56,7 +62,10 @@ public class PlayerManager : MonoBehaviour
         {
             invincibilityTimer -= Time.deltaTime;
             if (invincibilityTimer <= 0f)
+            {
                 isInvincible = false;
+                StopBlinking();
+            }
         }
 
         if (PlayerStatsManager.Instance == null) return;
@@ -122,10 +131,49 @@ public class PlayerManager : MonoBehaviour
     {
         isInvincible       = true;
         invincibilityTimer = invincibilityDuration;
+        StartBlinking();
         float hpBefore = PlayerStatsManager.Instance?.CurrentHp ?? 0f;
         PlayerStatsManager.Instance?.TakeDamage(amount);
         float hpAfter = PlayerStatsManager.Instance?.CurrentHp ?? 0f;
         Debug.Log($"[Player] Took {amount} damage — HP: {hpBefore} → {hpAfter}");
+    }
+
+    private SpriteRenderer[] GetBlinkRenderers()
+    {
+        if (tintTargets != null && tintTargets.Length > 0) return tintTargets;
+        return GetComponentsInChildren<SpriteRenderer>();
+    }
+
+    private void StartBlinking()
+    {
+        if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
+        _blinkRenderers = GetBlinkRenderers();
+        _blinkCoroutine = StartCoroutine(BlinkCoroutine());
+    }
+
+    private void StopBlinking()
+    {
+        if (_blinkCoroutine != null)
+        {
+            StopCoroutine(_blinkCoroutine);
+            _blinkCoroutine = null;
+        }
+        if (_blinkRenderers != null)
+            foreach (var sr in _blinkRenderers)
+                if (sr != null) sr.enabled = true;
+    }
+
+    private IEnumerator BlinkCoroutine()
+    {
+        bool visible = true;
+        while (true)
+        {
+            visible = !visible;
+            if (_blinkRenderers != null)
+                foreach (var sr in _blinkRenderers)
+                    if (sr != null) sr.enabled = visible;
+            yield return new WaitForSeconds(blinkInterval);
+        }
     }
 
     private void HandleDeath()

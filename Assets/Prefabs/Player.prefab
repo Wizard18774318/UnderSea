@@ -160,12 +160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b5ededa8a9bb34084752ead744a4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invincibilityDuration: 1.5
+  invincibilityDuration: 2
   projectileDamage: 4
   contactDamage: 4
   suffocationDamage: 1
   oxygenDrainRate: 10
   suffocationDamageInterval: 1
+  blinkInterval: 0.08
   tintTargets:
   - {fileID: 6620601565981921076}
   fullOxygenColor: {r: 1, g: 1, b: 1, a: 1}
