@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4988143860304792002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8207307507061281958}
+  - component: {fileID: 498868134021251498}
+  m_Layer: 0
+  m_Name: TrioBossManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8207307507061281958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988143860304792002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &498868134021251498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988143860304792002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072ea3f8c93c8184aa0bd239825fc060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishMidPrefab: {fileID: 1849596494334278, guid: 4add1fd4e3c01bb4d9dcc9249e1b0c85, type: 3}
+  fishDartPrefab: {fileID: 1225044215565552, guid: ad96930b4de55f54cad81f532c3e746e, type: 3}
+  fishBigPrefab: {fileID: 1788738869386804, guid: 2e27a3267463474458484a0ed3948997, type: 3}
+  spawnPosition: {x: 20, y: 0, z: 0}
+  delayBetweenBosses: 2
+  fishMidScale: 10
+  fishDartScale: 12
+  fishBigScale: 10
+  mouseAimHpMult: 20

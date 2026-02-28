@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		thePlayer = FindObjectOfType<PlayerController> ();	
+		thePlayer = FindAnyObjectByType<PlayerController> ();	
 		myRigidbody = GetComponent<Rigidbody2D> ();
 
 		turnTimer = 0;
@@ -30,7 +30,10 @@ public class Enemy : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update (){
-		myRigidbody.linearVelocity = new Vector3 (myRigidbody.transform.localScale.x * speed, myRigidbody.linearVelocity.y, 0f);
+		if (myRigidbody != null) {
+			// Use Mathf.Sign so scale magnitude doesn't affect speed
+			myRigidbody.linearVelocity = new Vector3 (Mathf.Sign(myRigidbody.transform.localScale.x) * speed, myRigidbody.linearVelocity.y, 0f);
+		}
 
 		turnTimer += Time.deltaTime;
 		if(turnTimer >= timeTrigger){
@@ -45,18 +48,20 @@ public class Enemy : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 
-		if(other.tag == "Player" && thePlayer.rushing){
-			Instantiate (death, gameObject.transform.position, gameObject.transform.rotation);
-			Destroy (gameObject);
+		if(other.tag == "Player"){
+			// PlayerController might not exist in this project
+			if (thePlayer != null && thePlayer.rushing){
+				Instantiate (death, gameObject.transform.position, gameObject.transform.rotation);
+				Destroy (gameObject);
+			}
+			// Otherwise just do nothing (player not rushing or PlayerController doesn't exist)
 		}
 
 	}
 
 	void turnAround(){
-		if (transform.localScale.x == 1) {
-			transform.localScale = new Vector3 (-1f, 1f, 1f);
-		} else {
-			transform.localScale = new Vector3 (1f,1f,1f);
-		}
+		// Preserve the current scale magnitude, only flip X for direction
+		Vector3 s = transform.localScale;
+		transform.localScale = new Vector3(-s.x, s.y, s.z);
 	}
 }

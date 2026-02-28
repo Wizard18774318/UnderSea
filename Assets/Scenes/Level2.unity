@@ -3404,8 +3404,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7391265824892893411, guid: 00964924fb14c35409855e7de374cb15, type: 3}
   playerSpawnPosition: {x: 0, y: 0, z: 0}
-  spawnBoss: 0
-  bossPrefab: {fileID: 4784044733322874709, guid: 2c27cf6b709449b4a8a6798f290a3732, type: 3}
+  spawnBoss: 1
+  bossPrefab: {fileID: 4988143860304792002, guid: 8c204dfa5b4aeda4bb267d56603a3306, type: 3}
   bossSpawnPosition: {x: 0, y: 0, z: 0}
   objectDestroyerPrefab: {fileID: 3954891832810137861, guid: 618f5454b24b2e04883a8be03cef2951, type: 3}
   spawnPosition: {x: 0, y: 0, z: 0}
@@ -3451,8 +3451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80197437d99ea94584d916222cd9762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 12
-  startingHp: 12
+  maxHp: 1000
+  startingHp: 1000
   maxOxygen: 100
   startingOxygen: 100
 --- !u!114 &1989881012

@@ -8,12 +8,19 @@ public class HurtPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		thePlayer = FindObjectOfType<PlayerController> ();	
+		thePlayer = FindAnyObjectByType<PlayerController> ();	
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
 		if(other.tag == "Player"){
-			thePlayer.hurt ();	 
+			// Use PlayerController if it exists (original asset)
+			if (thePlayer != null) {
+				thePlayer.hurt();
+			} else {
+				// Fallback to PlayerManager (used in this project)
+				var pm = other.GetComponent<PlayerManager>();
+				if (pm != null) pm.TakeMeleeDamage(4);
+			}
 		}
 
 	}
