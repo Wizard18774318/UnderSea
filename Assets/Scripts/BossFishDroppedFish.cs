@@ -1,0 +1,65 @@
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody2D))]
+public class BossFishDroppedFish : MonoBehaviour
+{
+    [SerializeField] private float acceleration  = 18f;
+    [SerializeField] private float maxSpeed      = 16f;
+    [SerializeField] private float damage        = 2f;
+    [SerializeField] private float offScreenKill = 3f;
+
+    private Rigidbody2D _rb;
+    private SpriteRenderer _sr;
+    private Vector2 _moveDir;
+    private float   _speed;
+    private bool    _initialised;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    public void Init()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector2 targetPos = player != null ? (Vector2)player.transform.position : (Vector2)transform.position + Vector2.down;
+
+        _moveDir     = (targetPos - (Vector2)transform.position).normalized;
+        _initialised = true;
+
+        if (_sr != null) _sr.flipX = _moveDir.x < 0f;
+    }
+
+    private void Update()
+    {
+        if (!_initialised) return;
+
+        _speed = Mathf.MoveTowards(_speed, maxSpeed, acceleration * Time.deltaTime);
+        _rb.linearVelocity = _moveDir * _speed;
+
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            float halfW = cam.orthographicSize * cam.aspect;
+            float halfH = cam.orthographicSize;
+            Vector3 c   = cam.transform.position;
+            if (transform.position.x < c.x - halfW - offScreenKill ||
+                transform.position.x > c.x + halfW + offScreenKill ||
+                transform.position.y < c.y - halfH - offScreenKill ||
+                transform.position.y > c.y + halfH + offScreenKill)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<PlayerManager>() != null)
+        {
+            PlayerStatsManager.Instance?.TakeDamage(damage);
+            Destroy(gameObject);
+        }
+    }
+}
