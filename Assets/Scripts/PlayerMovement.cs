@@ -84,4 +84,6 @@ public class PlayerMovement : MonoBehaviour
         dashCooldownTimer = dashCooldown;
         dashDirection = lastMoveDirection;
     }
+
+    public Vector2 CurrentVelocity => currentVelocity;
 }

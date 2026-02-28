@@ -7,16 +7,19 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private float spawnOffset = 0.5f;
     [SerializeField] private float fireCooldown = 0.2f;
+    [SerializeField] private float velocityInheritance = 1f;
 
     private Vector2 lastMoveDir = Vector2.right;
     private float nextFireTime;
 
     private Animator animator;
     private float lastDirectionX = 1f;
+    private PlayerMovement playerMovement;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
+        playerMovement = GetComponent<PlayerMovement>() ?? GetComponentInParent<PlayerMovement>();
     }
 
     void Update()
@@ -67,7 +70,10 @@ public class PlayerActions : MonoBehaviour
         ProjectileMovement pm = projectile.GetComponent<ProjectileMovement>();
         if (pm != null)
         {
-            pm.Init(dir, projectileSpeed);
+            Vector2 inheritedVelocity = playerMovement != null
+                ? playerMovement.CurrentVelocity * velocityInheritance
+                : Vector2.zero;
+            pm.Init(dir, projectileSpeed, inheritedVelocity);
         }
     }
 
