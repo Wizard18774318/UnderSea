@@ -167,6 +167,8 @@ MonoBehaviour:
   oxygenDrainRate: 7.5
   suffocationDamageInterval: 1
   blinkInterval: 0.08
+  deathBobAmplitude: 0.15
+  deathBobSpeed: 1.5
   tintTargets:
   - {fileID: 6620601565981921076}
   fullOxygenColor: {r: 1, g: 1, b: 1, a: 1}

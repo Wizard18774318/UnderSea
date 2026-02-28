@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -23,6 +24,9 @@ public class BossFishManager : MonoBehaviour
     [SerializeField] private GameObject fishRandomConstantAttackPrefab;
     [SerializeField] private bool spawnFishRandomConstantAttack = true;
 
+    [Header("Victory")]
+    [SerializeField] private bool countsAsLevelBoss = true;
+
     [Header("Spawn Position Noise")]
     [SerializeField] private float spawnNoiseRadius = 1.5f;
 
@@ -31,6 +35,9 @@ public class BossFishManager : MonoBehaviour
     private GameObject[] spawnedAttack = new GameObject[3];
 
     public bool IsShielded { get; private set; }
+    public bool CountsAsLevelBoss => countsAsLevelBoss;
+
+    public event Action OnBossKilled;
 
     public void ActivateShield()   { IsShielded = true; }
     public void DeactivateShield() { IsShielded = false; }
@@ -38,7 +45,7 @@ public class BossFishManager : MonoBehaviour
     private BossFishMovement _movement;
 
     private Vector3 RandomOffset() =>
-        (Vector3)Random.insideUnitCircle * spawnNoiseRadius;
+        (Vector3)UnityEngine.Random.insideUnitCircle * spawnNoiseRadius;
 
     private void Start()
     {
@@ -84,6 +91,8 @@ public class BossFishManager : MonoBehaviour
             foreach (GameObject attack in spawnedAttack.Where(a => a != null))
                 Destroy(attack);
 
+            if (countsAsLevelBoss)
+                OnBossKilled?.Invoke();
             Destroy(gameObject);
         }
     }
