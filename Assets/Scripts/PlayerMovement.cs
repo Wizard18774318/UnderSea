@@ -87,6 +87,10 @@ public class PlayerMovement : MonoBehaviour
             directionGraceTimer = 0f;
         }
 
+        // Aim-lock: hold Ctrl to rotate in place without moving
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+            moveInput = Vector2.zero;
+
         if (dashCooldownTimer > 0f)
             dashCooldownTimer = Mathf.Max(0f, dashCooldownTimer - Time.deltaTime);
 
