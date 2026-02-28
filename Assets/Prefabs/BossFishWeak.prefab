@@ -178,6 +178,8 @@ MonoBehaviour:
   spawnFishAttackRight: 1
   fishRandomConstantAttackPrefab: {fileID: 0}
   spawnFishRandomConstantAttack: 1
+  countsAsLevelBoss: 0
+  winScreen: {fileID: 0}
   spawnNoiseRadius: 0.75
 --- !u!114 &1996124121674862103
 MonoBehaviour:
