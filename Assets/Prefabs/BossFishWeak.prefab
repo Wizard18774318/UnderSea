@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2115586997794703621}
   - component: {fileID: 1996124121674862103}
   m_Layer: 0
-  m_Name: BossFish
+  m_Name: BossFishWeak
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -166,19 +166,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5365d4a8683c7e4b92fa640d789fd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 200
-  phase2HpThreshold: 0.5
-  phase2ScaleMultiplier: 1.4
+  maxHp: 120
+  phase2HpThreshold: 0
+  phase2ScaleMultiplier: 1.2
   phase2Color: {r: 1, g: 0.15, b: 0.1, a: 1}
-  phase2SpeedMultiplier: 1.5
-  startInPhase2: 0
+  phase2SpeedMultiplier: 1.2
+  startInPhase2: 1
   fishAttackLeftPrefab: {fileID: 0}
-  spawnFishAttackLeft: 0
+  spawnFishAttackLeft: 1
   fishAttackRightPrefab: {fileID: 0}
-  spawnFishAttackRight: 0
+  spawnFishAttackRight: 1
   fishRandomConstantAttackPrefab: {fileID: 0}
-  spawnFishRandomConstantAttack: 0
-  spawnNoiseRadius: 1.5
+  spawnFishRandomConstantAttack: 1
+  spawnNoiseRadius: 0.75
 --- !u!114 &1996124121674862103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,46 +191,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fac3d55ba35232479a8b0219dae810e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolSpeed: 8
-  patrolEdgePadding: 1
-  patrolDuration: 10
-  sweepMoveSpeed: 8
-  sweepSpeed: 14
-  sweepEdgePadding: 2
-  sweepYOffset: -0.5
-  aboveScreenOffset: 3
-  fishDropInterval: 0.7
+  patrolSpeed: 6
+  patrolEdgePadding: 1.5
+  patrolDuration: 0
+  sweepMoveSpeed: 1
+  sweepSpeed: 3
+  sweepEdgePadding: 1
+  sweepYOffset: -0.3
+  aboveScreenOffset: 2
+  fishDropInterval: 1
   droppedFishPrefab: {fileID: 4808770104881401178, guid: 08ab0e00115e1e5469a72ac38353486b, type: 3}
   spawnEnabled: 1
-  wobbleAmplitude: 0.1
-  wobbleFrequency: 2
-  dashSpeed: 40
-  dashMoveSpeed: 30
+  wobbleAmplitude: 0.08
+  wobbleFrequency: 1.6
+  dashSpeed: 16
+  dashMoveSpeed: 10
   dashEdgePadding: 0.5
-  dashMinCount: 2
-  dashMaxCount: 5
-  middlePassSpeed: 12
-  middlePassDropInterval: 0.2
+  dashMinCount: 1
+  dashMaxCount: 3
+  middlePassSpeed: 10
+  middlePassDropInterval: 0.4
   middlePassMinRepeats: 1
   middlePassMaxRepeats: 2
-  rowFishPrefab: {fileID: 4728537957919848525, guid: 0ebec35fe62445b4ab2170653c405ab2, type: 3}
-  rowFishSpeed: 8
-  redBubblePrefab: {fileID: 4741802819556196432, guid: c6bf9215b5c5027439ffcde4d08c1356, type: 3}
-  shieldPrefab: {fileID: 3703695927643148051, guid: e81c5425de3f0e740ad0fca84711152a, type: 3}
-  bubbleCount: 8
-  bubbleOutSpeed: 9
-  bubbleReturnDelay: 8
-  bubbleCurlSpeed: 50
-  bubbleWaveCount: 6
+  rowFishPrefab: {fileID: 0}
+  rowFishSpeed: 6
+  redBubblePrefab: {fileID: 0}
+  shieldPrefab: {fileID: 0}
+  bubbleCount: 6
+  bubbleOutSpeed: 5
+  bubbleReturnDelay: 2
+  bubbleCurlSpeed: 30
+  bubbleWaveCount: 2
   bubbleWaveInterval: 1
-  centerFireHold: 3.5
-  ambushFishPrefab: {fileID: 3163824343516321223, guid: e1615644173991145b2eb92e3ec9eae7, type: 3}
-  ambushSweepSpeed: 6
-  ambushDropInterval: 0.45
+  centerFireHold: 1.2
+  ambushFishPrefab: {fileID: 0}
+  ambushSweepSpeed: 8
+  ambushDropInterval: 0.6
   ambushEdgeOffset: 0.5
   ambushMinRepeats: 1
-  ambushMaxRepeats: 2
-  phase2PatrolSpeed: 14
-  phase2PatrolMinDuration: 6
-  phase2PatrolMaxDuration: 8
-  phase2PatrolYRange: 0.6
+  ambushMaxRepeats: 1
+  phase2PatrolSpeed: 8
+  phase2PatrolMinDuration: 2
+  phase2PatrolMaxDuration: 4
+  phase2PatrolYRange: 0.4

@@ -145,7 +145,7 @@ MonoBehaviour:
   moveSpeed: 10
   acceleration: 20
   deceleration: 16
-  dashSpeed: 12
+  dashSpeed: 15
   dashDuration: 0.1
   dashCooldown: 1
 --- !u!114 &516477553387449150

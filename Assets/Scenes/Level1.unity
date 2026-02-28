@@ -3278,7 +3278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f67c50cdfe32d47bde3edebbe5b656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEnabled: 1
+  spawnEnabled: 0
   fishPrefab: {fileID: 7588694974094103667, guid: 8d12301a756beb7489b68d2ca1fd5be8, type: 3}
   spawnInterval: 10
   fishSpeed: 7
@@ -3297,12 +3297,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnEnabled: 1
   oxygenBubblePrefab: {fileID: 7624469858195668256, guid: 45fab7873e6f5524893a953d8cbf1f8a, type: 3}
-  spawnInterval: 7.5
-  maxBubblesAtOnce: 5
+  spawnInterval: 5
+  maxBubblesAtOnce: 100
   bubbleOxygenCapacity: 110
   bubbleCapacityMinMultiplier: 1
-  bubbleCapacityMaxMultiplier: 1.5
-  bubbleOxygenRate: 20
+  bubbleCapacityMaxMultiplier: 2
+  bubbleOxygenRate: 100
 --- !u!114 &1989881011
 MonoBehaviour:
   m_ObjectHideFlags: 0

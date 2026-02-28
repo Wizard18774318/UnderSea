@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4946288188767010530}
   - component: {fileID: 4881083906475205922}
   - component: {fileID: -5317557232630503548}
+  - component: {fileID: 773061225728624186}
   - component: {fileID: 107274034819160924}
   - component: {fileID: 1795688019237623644}
   m_Layer: 0
@@ -105,23 +106,53 @@ MonoBehaviour:
   maxHp: 60
   phase2Threshold: 0.66
   phase3Threshold: 0.33
+  phase2Only: 1
   tridentPrefab: {fileID: 3102799933259831947, guid: 8b037f2ea300d3f4aa9425afe1d750bd, type: 3}
   minCooldown: 1.5
   maxCooldown: 2
   phase3CooldownMult: 0.6
-  sweepSpeed: 14
-  sweepYOffset: 0
+  enablePhase1Fish: 0
+  phase1FishPrefab: {fileID: 7588694974094103667, guid: 8d12301a756beb7489b68d2ca1fd5be8, type: 3}
+  phase1SpawnInterval: 2
+  phase1FishSpeed: 5
+  phase1ScreenPadding: 1
+  phase1MaxFish: 3
+  phase1FishScale: 0.5
   waveCount: 5
   waveSpeed: 12
   waveSpread: 40
   waveXDepth: 3
   forkSpeed: 15
   forkSpreadDeg: 30
-  rainCount: 64
+  rainCount: 7
   rainSpeed: 11
-  rainDelay: 0.2
+  rainDelay: 0.5
   rainAngleVariance: 15
   spinSpeed: 20
+  bossFishMinionPrefab: {fileID: 8732790550434326072, guid: d339160a36b19a245a63e1e36fcff7bc, type: 3}
+  bossFishSpawnPhase: 2
+  bossFishSpawnOffset: {x: -4, y: 1.25}
+  bossFishSpawnInterval: 16
+  bossFishMaxAlive: 1
+--- !u!114 &773061225728624186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7374944082093030856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4696723c0687195499bd9706e9727ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPadding: 0.75
+  accelerationScale: 6
+  maxSpeed: 8
+  velocityResponsiveness: 8
+  arrivalThreshold: 0.3
+  minHoldTime: 0.35
+  maxHoldTime: 0.9
 --- !u!58 &107274034819160924
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -3405,8 +3405,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 7391265824892893411, guid: 00964924fb14c35409855e7de374cb15, type: 3}
   playerSpawnPosition: {x: 0, y: 0, z: 0}
   spawnBoss: 1
-  bossPrefab: {fileID: 7374944082093030856, guid: af1fe9d48d85f9c4e8ab7db03ff909ea, type: 3}
-  bossSpawnPosition: {x: 0, y: 0, z: 0}
+  bossPrefab: {fileID: 1839754551459109827, guid: 766dc737f2659494bb0d606d4d39f3df, type: 3}
+  bossSpawnPosition: {x: 12, y: 0, z: 0}
   objectDestroyerPrefab: {fileID: 3954891832810137861, guid: 618f5454b24b2e04883a8be03cef2951, type: 3}
   spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1989881009

@@ -11,6 +11,7 @@ public class BossFishManager : MonoBehaviour
     [SerializeField] private float phase2ScaleMultiplier = 1.4f;
     [SerializeField] private Color phase2Color = new Color(1f, 0.15f, 0.1f);
     [SerializeField] private float phase2SpeedMultiplier = 1.5f;
+    [SerializeField] private bool  startInPhase2 = false;
 
     [Header("Attack Spawns")]
     [SerializeField] private GameObject fishAttackLeftPrefab;
@@ -55,6 +56,9 @@ public class BossFishManager : MonoBehaviour
 
         if (fishRandomConstantAttackPrefab != null && spawnFishRandomConstantAttack)
             spawnedAttack[2] = Instantiate(fishRandomConstantAttackPrefab, transform.position + RandomOffset(), Quaternion.identity);
+
+        if (startInPhase2)
+            TriggerPhase2();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
