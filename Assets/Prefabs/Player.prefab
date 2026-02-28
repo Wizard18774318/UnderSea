@@ -164,7 +164,7 @@ MonoBehaviour:
   projectileDamage: 4
   contactDamage: 4
   suffocationDamage: 1
-  oxygenDrainRate: 10
+  oxygenDrainRate: 7.5
   suffocationDamageInterval: 1
   blinkInterval: 0.08
   tintTargets:
