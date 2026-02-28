@@ -11,17 +11,36 @@ public class PlayerActions : MonoBehaviour
     private Vector2 lastMoveDir = Vector2.right;
     private float nextFireTime;
 
+    private Animator animator;
+    private float lastDirectionX = 1f;
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Vector2 input = new Vector2(moveX, moveY);
+
         if (input.sqrMagnitude > 0f)
         {
             lastMoveDir = SnapTo8Directions(input.normalized);
+
+            if (lastMoveDir.x != 0f)
+            {
+                lastDirectionX = lastMoveDir.x;
+            }
         }
 
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+        animator.SetFloat("dir", lastDirectionX);
+
+        bool shooting = Input.GetMouseButton(0);
+        animator.SetBool("isShooting", shooting);
+
+        if (shooting && Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + fireCooldown;
             Shoot();
