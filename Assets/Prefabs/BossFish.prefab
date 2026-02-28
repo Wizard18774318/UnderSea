@@ -194,7 +194,7 @@ MonoBehaviour:
   sweepEdgePadding: 2
   sweepYOffset: -0.5
   aboveScreenOffset: 3
-  fishDropInterval: 0
+  fishDropInterval: 0.1
   droppedFishPrefab: {fileID: 4808770104881401178, guid: 08ab0e00115e1e5469a72ac38353486b, type: 3}
   spawnEnabled: 1
   wobbleAmplitude: 0.1
