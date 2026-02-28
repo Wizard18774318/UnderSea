@@ -164,8 +164,8 @@ MonoBehaviour:
   projectileDamage: 4
   contactDamage: 4
   suffocationDamage: 1
-  oxygenDrainRate: 2.5
-  suffocationDamageInterval: 1.5
+  oxygenDrainRate: 10
+  suffocationDamageInterval: 1
   tintTargets:
   - {fileID: 6620601565981921076}
   fullOxygenColor: {r: 1, g: 1, b: 1, a: 1}
