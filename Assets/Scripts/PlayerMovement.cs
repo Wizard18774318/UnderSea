@@ -9,6 +9,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
 
+    [Header("Camera Bounds")]
+    [Tooltip("Inset from the camera edge — keeps the player sprite fully visible (0 = stop exactly at edge)")]
+    [SerializeField] private float boundaryPadding = 0.5f;
+    [Tooltip("How many units the player can go PAST the camera edge (0 = hard wall, 1 = one unit of bleed)")]
+    [SerializeField] private float borderOverlap = 0f;
+
 
     private Rigidbody2D rb;
     private Camera _cam;
@@ -108,7 +114,12 @@ public class PlayerMovement : MonoBehaviour
             currentVelocity = dashDirection * dashSpeed;
             dashTimer -= Time.fixedDeltaTime;
             if (dashTimer <= 0f) isDashing = false;
-            rb.MovePosition(rb.position + currentVelocity * Time.fixedDeltaTime);
+
+            Vector2 dashPos = rb.position + currentVelocity * Time.fixedDeltaTime;
+            Vector2 dashClamped = ClampToBounds(dashPos);
+            if (Mathf.Abs(dashClamped.x - dashPos.x) > 0.001f) currentVelocity.x = 0f;
+            if (Mathf.Abs(dashClamped.y - dashPos.y) > 0.001f) currentVelocity.y = 0f;
+            rb.MovePosition(dashClamped);
             return;
         }
 
@@ -124,7 +135,24 @@ public class PlayerMovement : MonoBehaviour
             currentVelocity += step;
         }
 
-        rb.MovePosition(rb.position + currentVelocity * Time.fixedDeltaTime);
+        Vector2 newPos    = rb.position + currentVelocity * Time.fixedDeltaTime;
+        Vector2 clamped   = ClampToBounds(newPos);
+        if (Mathf.Abs(clamped.x - newPos.x) > 0.001f) currentVelocity.x = 0f;
+        if (Mathf.Abs(clamped.y - newPos.y) > 0.001f) currentVelocity.y = 0f;
+        rb.MovePosition(clamped);
+    }
+
+    private Vector2 ClampToBounds(Vector2 pos)
+    {
+        if (_cam == null) return pos;
+        float inset = boundaryPadding - borderOverlap;
+        float halfH = _cam.orthographicSize - inset;
+        float halfW = halfH * _cam.aspect   - inset;
+        Vector3 c   = _cam.transform.position;
+        return new Vector2(
+            Mathf.Clamp(pos.x, c.x - halfW, c.x + halfW),
+            Mathf.Clamp(pos.y, c.y - halfH, c.y + halfH)
+        );
     }
 
     private void UpdateRotation()
