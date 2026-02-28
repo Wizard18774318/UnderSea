@@ -176,3 +176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
+  fishAttackLeftPrefab: {fileID: 7850431243823500127, guid: 3f26505ee8e476946ab02a25e0561490, type: 3}
+  fishAttackRightPrefab: {fileID: 7850431243823500127, guid: 36c82a890eab4a5428ec9155d58d54cc, type: 3}
+  fishRandomConstantAttackPrefab: {fileID: 5263700649796700719, guid: aaa96b5b38edaf146aad0caf334dd6a6, type: 3}

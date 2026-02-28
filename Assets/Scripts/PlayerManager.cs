@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private int maxHp = 3;
+    [SerializeField] private int maxHp = 12;
     [SerializeField] private float invincibilityDuration = 1.5f;
 
     private int currentHp;
@@ -28,9 +28,9 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Boss") && !isInvincible)
+        if (other.CompareTag("Enemy_Projectile") && !isInvincible)
         {
-            TakeDamage(1);
+            TakeDamage(4);
         }
     }
 

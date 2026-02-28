@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5263700649796700719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6047564301331560247}
+  - component: {fileID: 7670542597089732766}
+  m_Layer: 0
+  m_Name: RandomFishSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6047564301331560247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5263700649796700719}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 19.50155, y: -6.638707, z: -0.30481488}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7670542597089732766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5263700649796700719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ac441db54579f4396cae91fcb19958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishPrefab: {fileID: 7362046228159835213, guid: dbcb5c82df37a414291ece786112354b, type: 3}
+  fishSprites:
+  - {fileID: -855298285791758126, guid: b5cd55bba04a03e428a8fe2af057af28, type: 3}
+  - {fileID: 6937817954938267909, guid: 4d26426d846d67644bb5ad74b27d2366, type: 3}
+  - {fileID: -6470460504253458178, guid: f30a2c1da194a60479354eb85d1496ab, type: 3}
+  - {fileID: -4178046375966092550, guid: a47248da72e852c4a8298ad01f8475ed, type: 3}
+  - {fileID: 4130640169021434097, guid: b0b64d70b4576484c91385040e0cdf3a, type: 3}
+  - {fileID: 3465286685962602723, guid: 8c46e6bf23b1e614c81fceaa6394bb55, type: 3}
+  - {fileID: 7028616704906629411, guid: ae8c4c2af42f93d4a8a99ea9c8e1495c, type: 3}
+  - {fileID: 8288426215254106694, guid: e33d7961f1d705f4eaf10459e5934330, type: 3}
+  - {fileID: 4113829005332862926, guid: 7dce27803529937448d958cfc8ebb241, type: 3}
+  - {fileID: -5099292496197868168, guid: 3ac8e15542f2a7f43a2871dc2a941163, type: 3}
+  - {fileID: -2966200626249415253, guid: fbaaa61515d9ce24592268b0e81ef678, type: 3}
+  - {fileID: -1540426309290004842, guid: 26737d378ac91ee488cce7536bef7d76, type: 3}
+  - {fileID: 8389134475083476877, guid: 0169596039b40ac4bb4919d8bcdd9d03, type: 3}
+  - {fileID: -6270953770400647376, guid: 00d038eb657340b44b03d830c807d91f, type: 3}
+  - {fileID: 4349915267927364619, guid: b5a82c400250d8142bcfe1dece08fdf2, type: 3}
+  minSpawnInterval: 0.5
+  maxSpawnInterval: 1
+  minSpeed: 6
+  maxSpeed: 12
+  minScale: 0.75
+  maxScale: 2
+  screenPadding: 5

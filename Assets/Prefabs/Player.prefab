@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6620601565981921076}
   - component: {fileID: 1243628811338862359}
   - component: {fileID: 3353127251837161830}
+  - component: {fileID: 516477553387449150}
   - component: {fileID: 1145704073093830955}
   - component: {fileID: 1708708939014310116}
   m_Layer: 0
@@ -145,6 +146,20 @@ MonoBehaviour:
   dashSpeed: 12
   dashDuration: 0.1
   dashCooldown: 1
+--- !u!114 &516477553387449150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7391265824892893411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b5ededa8a9bb34084752ead744a4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 12
+  invincibilityDuration: 1.5
 --- !u!50 &1145704073093830955
 Rigidbody2D:
   serializedVersion: 5

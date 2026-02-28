@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2557796120525988244}
   - component: {fileID: 7141202008801661095}
   - component: {fileID: 7452796015717479710}
-  - component: {fileID: 2710337953640952740}
-  - component: {fileID: 2610033251629493573}
+  - component: {fileID: 2973466567447966140}
+  - component: {fileID: 337244217637361000}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Projectile
@@ -120,7 +120,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -139,7 +139,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea464bc780ffd094d914386e67d14f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!50 &2710337953640952740
+  damageAmount: 2.5
+--- !u!114 &2973466567447966140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067316778663208694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64226fe71ea243341b460a29a5a89a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &337244217637361000
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
