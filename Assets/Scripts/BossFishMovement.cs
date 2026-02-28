@@ -184,6 +184,7 @@ public class BossFishMovement : MonoBehaviour
     {
         float topY = _cam.transform.position.y + _cam.orthographicSize + aboveScreenOffset;
         MoveToward(new Vector2(transform.position.x, topY), sweepMoveSpeed);
+        if (Mathf.Abs(_velocity.x) > 0.1f) SetFacing(_velocity.x > 0);
 
         if (transform.position.y >= topY - 0.1f)
         {
@@ -203,6 +204,7 @@ public class BossFishMovement : MonoBehaviour
         Vector2 target = new Vector2(startX, sweepY);
 
         MoveToward(target, sweepMoveSpeed);
+        if (Mathf.Abs(_velocity.x) > 0.1f) SetFacing(_velocity.x > 0);
 
         if (Vector2.Distance(transform.position, target) < 0.2f)
         {
@@ -241,6 +243,7 @@ public class BossFishMovement : MonoBehaviour
         float camY    = _cam.transform.position.y;
         Vector2 target = new Vector2(transform.position.x, camY);
         MoveToward(target, sweepMoveSpeed);
+        if (Mathf.Abs(_velocity.x) > 0.1f) SetFacing(_velocity.x > 0);
 
         if (Mathf.Abs(transform.position.y - camY) < 0.2f)
         {

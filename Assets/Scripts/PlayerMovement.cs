@@ -96,12 +96,12 @@ public class PlayerMovement : MonoBehaviour
             // Rotate toward mouse cursor
             Vector3 mouseWorld = _cam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 dir = (mouseWorld - transform.position).normalized;
-            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            angle = Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg;
         }
         else
         {
             // Snap to nearest 45° based on movement direction
-            if (moveInput.sqrMagnitude < 0.0001f) return; // keep last rotation while idle
+            if (moveInput.sqrMagnitude < 0.0001f) return;
             Vector2 best = SnapDirs[0];
             float bestDot = -2f;
             foreach (Vector2 sd in SnapDirs)
@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
                 float dot = Vector2.Dot(moveInput.normalized, sd);
                 if (dot > bestDot) { bestDot = dot; best = sd; }
             }
-            angle = Mathf.Atan2(best.y, best.x) * Mathf.Rad2Deg;
+            angle = Mathf.Atan2(-best.x, best.y) * Mathf.Rad2Deg;
         }
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);

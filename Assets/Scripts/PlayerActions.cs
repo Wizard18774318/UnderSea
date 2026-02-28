@@ -29,15 +29,22 @@ public class PlayerActions : MonoBehaviour
         Vector2 input = new Vector2(moveX, moveY);
 
         if (input.sqrMagnitude > 0f)
-        {
             lastMoveDir = SnapTo8Directions(input.normalized);
-        }
 
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float mouseDirX = mouseWorldPos.x - transform.position.x;
-        if (Mathf.Abs(mouseDirX) > 0.01f)
+        bool mouseAiming = GameSettings.Instance != null && GameSettings.Instance.mouseAiming;
+
+        if (mouseAiming)
         {
-            lastDirectionX = Mathf.Sign(mouseDirX);
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float mouseDirX = mouseWorldPos.x - transform.position.x;
+            if (Mathf.Abs(mouseDirX) > 0.01f)
+                lastDirectionX = Mathf.Sign(mouseDirX);
+        }
+        else
+        {
+            // Use movement direction for facing
+            if (input.sqrMagnitude > 0.01f)
+                lastDirectionX = input.x != 0 ? Mathf.Sign(input.x) : lastDirectionX;
         }
 
         animator.SetFloat("dir", lastDirectionX);
@@ -56,11 +63,22 @@ public class PlayerActions : MonoBehaviour
     {
         if (projectilePrefab == null) return;
 
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorld.z = 0f;
         Vector3 origin = firePoint != null ? firePoint.position : transform.position;
-        Vector2 dir = ((Vector2)(mouseWorld - origin)).normalized;
-        if (dir == Vector2.zero) dir = lastMoveDir;
+        Vector2 dir;
+
+        bool mouseAiming = GameSettings.Instance != null && GameSettings.Instance.mouseAiming;
+        if (mouseAiming)
+        {
+            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorld.z = 0f;
+            dir = ((Vector2)(mouseWorld - origin)).normalized;
+            if (dir == Vector2.zero) dir = lastMoveDir;
+        }
+        else
+        {
+            // Fire in the direction the player is facing (transform.up = sprite's up)
+            dir = transform.up;
+        }
 
         Vector3 spawnPos = origin;
         spawnPos += (Vector3)(dir * spawnOffset);

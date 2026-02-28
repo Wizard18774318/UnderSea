@@ -88,9 +88,14 @@ public class AttackController : MonoBehaviour
     // ─────────────────────────────────────────────────────────────────────────
     private void Awake()
     {
-        _cam       = Camera.main;
-        _currentHp = maxHp;
-        _cooldownTimer = maxCooldown; // small grace period at start
+        _cam = Camera.main;
+
+        // Apply mouse-aiming HP multiplier from global settings
+        if (GameSettings.Instance != null && GameSettings.Instance.mouseAiming)
+            maxHp *= GameSettings.Instance.mouseAimingHpMultiplier;
+
+        _currentHp     = maxHp;
+        _cooldownTimer = maxCooldown;
     }
 
     private void Update()

@@ -41,6 +41,9 @@ public class BossFishManager : MonoBehaviour
 
     private void Start()
     {
+        if (GameSettings.Instance != null && GameSettings.Instance.mouseAiming)
+            maxHp *= GameSettings.Instance.mouseAimingHpMultiplier;
+
         currentHp = maxHp;
         _movement = GetComponent<BossFishMovement>();
 

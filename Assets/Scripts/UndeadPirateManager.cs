@@ -45,6 +45,9 @@ public class UndeadPirateManager : MonoBehaviour
 
     private void Start()
     {
+        if (GameSettings.Instance != null && GameSettings.Instance.mouseAiming)
+            maxHp *= GameSettings.Instance.mouseAimingHpMultiplier;
+
         _currentHp = maxHp;
         _movement  = GetComponent<UndeadPirateMovement>();
 

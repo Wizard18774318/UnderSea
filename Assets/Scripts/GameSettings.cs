@@ -12,7 +12,9 @@ public class GameSettings : MonoBehaviour
     [Header("Controls")]
     [Tooltip("True = player rotates toward mouse | False = snaps to 45° movement direction")]
     public bool mouseAiming = false;
-
+    [Header("Difficulty")]
+    [Tooltip("Boss HP is multiplied by this when Mouse Aiming is enabled.")]
+    public float mouseAimingHpMultiplier = 20f;
     private void Awake()
     {
         if (Instance != null && Instance != this)

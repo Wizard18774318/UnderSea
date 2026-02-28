@@ -16,8 +16,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int suffocationDamage = 1;   // 1 quarter-heart per tick
 
     [Header("Oxygen Drain")]
-    [SerializeField] private float oxygenDrainRate         = 2.5f; // oxygen per second
-    [SerializeField] private float suffocationDamageInterval = 1.5f;
+    [SerializeField] private float oxygenDrainRate         = 10f; // oxygen per second
+    [SerializeField] private float suffocationDamageInterval = 1f;
 
     [Header("Oxygen Tint")]
     [SerializeField] private SpriteRenderer[] tintTargets;
