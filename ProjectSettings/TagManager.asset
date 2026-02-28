@@ -8,6 +8,7 @@ TagManager:
   - Boss
   - Destroyer
   - Enemy_Projectile
+  - Trident
   layers:
   - Default
   - TransparentFX
