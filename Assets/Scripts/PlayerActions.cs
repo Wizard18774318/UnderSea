@@ -49,7 +49,7 @@ public class PlayerActions : MonoBehaviour
 
         animator.SetFloat("dir", lastDirectionX);
 
-        bool shooting = Input.GetMouseButton(0);
+        bool shooting = Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space);
         animator.SetBool("isShooting", shooting);
 
         if (shooting && Time.time >= nextFireTime)
