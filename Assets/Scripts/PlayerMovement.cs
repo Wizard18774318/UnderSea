@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
 
+
     private Rigidbody2D rb;
+    private Camera _cam;
     private Vector2 moveInput;
     private Vector2 currentVelocity;
     private Vector2 lastMoveDirection = Vector2.right;
@@ -18,32 +20,44 @@ public class PlayerMovement : MonoBehaviour
     private float dashTimer;
     private float dashCooldownTimer;
 
+    // 45° snap directions
+    private static readonly Vector2[] SnapDirs =
+    {
+        Vector2.right,
+        new Vector2( 1f,  1f).normalized,
+        Vector2.up,
+        new Vector2(-1f,  1f).normalized,
+        Vector2.left,
+        new Vector2(-1f, -1f).normalized,
+        Vector2.down,
+        new Vector2( 1f, -1f).normalized,
+    };
+
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb   = GetComponent<Rigidbody2D>();
+        _cam = Camera.main;
     }
 
     void Update()
     {
+        if (_cam == null) _cam = Camera.main;
+
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY);
 
         if (moveInput.sqrMagnitude > 0.0001f)
-        {
             lastMoveDirection = moveInput.normalized;
-        }
 
         if (dashCooldownTimer > 0f)
-        {
             dashCooldownTimer = Mathf.Max(0f, dashCooldownTimer - Time.deltaTime);
-        }
 
         bool dashPressed = Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift);
         if (dashPressed && !isDashing && dashCooldownTimer <= 0f && lastMoveDirection.sqrMagnitude > 0.0001f)
-        {
             StartDash();
-        }
+
+        UpdateRotation();
     }
 
     void FixedUpdate()
@@ -52,12 +66,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentVelocity = dashDirection * dashSpeed;
             dashTimer -= Time.fixedDeltaTime;
-
-            if (dashTimer <= 0f)
-            {
-                isDashing = false;
-            }
-
+            if (dashTimer <= 0f) isDashing = false;
             rb.MovePosition(rb.position + currentVelocity * Time.fixedDeltaTime);
             return;
         }
@@ -77,6 +86,35 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + currentVelocity * Time.fixedDeltaTime);
     }
 
+    private void UpdateRotation()
+    {
+        float angle;
+
+        bool mouseAiming = GameSettings.Instance != null && GameSettings.Instance.mouseAiming;
+        if (mouseAiming)
+        {
+            // Rotate toward mouse cursor
+            Vector3 mouseWorld = _cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 dir = (mouseWorld - transform.position).normalized;
+            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        }
+        else
+        {
+            // Snap to nearest 45° based on movement direction
+            if (moveInput.sqrMagnitude < 0.0001f) return; // keep last rotation while idle
+            Vector2 best = SnapDirs[0];
+            float bestDot = -2f;
+            foreach (Vector2 sd in SnapDirs)
+            {
+                float dot = Vector2.Dot(moveInput.normalized, sd);
+                if (dot > bestDot) { bestDot = dot; best = sd; }
+            }
+            angle = Mathf.Atan2(best.y, best.x) * Mathf.Rad2Deg;
+        }
+
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    }
+
     private void StartDash()
     {
         isDashing = true;
@@ -87,3 +125,4 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 CurrentVelocity => currentVelocity;
 }
+
