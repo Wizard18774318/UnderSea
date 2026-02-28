@@ -204,24 +204,24 @@ MonoBehaviour:
   spawnEnabled: 1
   wobbleAmplitude: 0.1
   wobbleFrequency: 2
-  dashSpeed: 40
-  dashMoveSpeed: 30
+  dashSpeed: 20
+  dashMoveSpeed: 20
   dashEdgePadding: 0.5
   dashMinCount: 2
-  dashMaxCount: 5
+  dashMaxCount: 3
   middlePassSpeed: 12
-  middlePassDropInterval: 0.2
+  middlePassDropInterval: 0.4
   middlePassMinRepeats: 1
   middlePassMaxRepeats: 2
   rowFishPrefab: {fileID: 4728537957919848525, guid: 0ebec35fe62445b4ab2170653c405ab2, type: 3}
-  rowFishSpeed: 8
+  rowFishSpeed: 6
   redBubblePrefab: {fileID: 4741802819556196432, guid: c6bf9215b5c5027439ffcde4d08c1356, type: 3}
   shieldPrefab: {fileID: 3703695927643148051, guid: e81c5425de3f0e740ad0fca84711152a, type: 3}
   bubbleCount: 8
-  bubbleOutSpeed: 9
+  bubbleOutSpeed: 7
   bubbleReturnDelay: 8
-  bubbleCurlSpeed: 50
-  bubbleWaveCount: 6
+  bubbleCurlSpeed: 30
+  bubbleWaveCount: 5
   bubbleWaveInterval: 1
   centerFireHold: 3.5
   ambushFishPrefab: {fileID: 3163824343516321223, guid: e1615644173991145b2eb92e3ec9eae7, type: 3}
