@@ -162,9 +162,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invincibilityDuration: 1.5
   projectileDamage: 4
+  contactDamage: 4
   suffocationDamage: 1
   oxygenDrainRate: 2.5
   suffocationDamageInterval: 1.5
+  tintTargets:
+  - {fileID: 6620601565981921076}
+  fullOxygenColor: {r: 1, g: 1, b: 1, a: 1}
+  lowOxygenColor: {r: 0.18022428, g: 0.3119082, b: 0.509434, a: 1}
 --- !u!50 &1145704073093830955
 Rigidbody2D:
   serializedVersion: 5
@@ -209,6 +214,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   spawnOffset: 1
   fireCooldown: 0.2
+  velocityInheritance: 1
 --- !u!114 &-6808974612561483255
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float oxygenDrainRate         = 2.5f; // oxygen per second
     [SerializeField] private float suffocationDamageInterval = 1.5f;
 
+    [Header("Oxygen Tint")]
+    [SerializeField] private SpriteRenderer[] tintTargets;
+    [SerializeField] private Color fullOxygenColor = Color.white;
+    [SerializeField] private Color lowOxygenColor  = new Color(0.4f, 0.65f, 0.89f);
+
     private bool  isInvincible;
     private float invincibilityTimer;
     private float suffocationTimer;
@@ -28,13 +33,20 @@ public class PlayerManager : MonoBehaviour
         suffocationTimer = suffocationDamageInterval;
 
         if (PlayerStatsManager.Instance != null)
+        {
             PlayerStatsManager.Instance.OnPlayerDied += HandleDeath;
+            PlayerStatsManager.Instance.OnOxygenChanged += UpdateOxygenTint;
+            UpdateOxygenTint();
+        }
     }
 
     private void OnDestroy()
     {
         if (PlayerStatsManager.Instance != null)
+        {
             PlayerStatsManager.Instance.OnPlayerDied -= HandleDeath;
+            PlayerStatsManager.Instance.OnOxygenChanged -= UpdateOxygenTint;
+        }
     }
 
     private void Update()
@@ -120,6 +132,22 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log("Player died!");
         Destroy(gameObject);
+    }
+
+    private void UpdateOxygenTint()
+    {
+        if (tintTargets == null || tintTargets.Length == 0 || PlayerStatsManager.Instance == null)
+            return;
+
+        float max = Mathf.Max(0.0001f, PlayerStatsManager.Instance.MaxOxygen);
+        float fraction = Mathf.Clamp01(PlayerStatsManager.Instance.CurrentOxygen / max);
+        Color targetColor = Color.Lerp(lowOxygenColor, fullOxygenColor, fraction);
+
+        for (int i = 0; i < tintTargets.Length; i++)
+        {
+            if (tintTargets[i] != null)
+                tintTargets[i].color = targetColor;
+        }
     }
 }
 
