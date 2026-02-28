@@ -1,4 +1,9 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 // Handles global pause input and menu visibility.
 public class PauseManager : MonoBehaviour
@@ -7,6 +12,7 @@ public class PauseManager : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenuRoot;
     [SerializeField] private GameObject optionsMenuRoot;
+    [SerializeField] private string mainMenuSceneName;
 
     void Awake()
     {
@@ -89,6 +95,25 @@ public class PauseManager : MonoBehaviour
     public void ResumeGame()
     {
         SetPaused(false);
+    }
+
+    public void QuitGame()
+    {
+        SetPaused(false);
+
+        if (string.IsNullOrEmpty(mainMenuSceneName))
+        {
+            Debug.LogWarning("PauseManager: No main menu scene name assigned.");
+
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+            return;
+        }
+
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 
     void InitializeMenus()
