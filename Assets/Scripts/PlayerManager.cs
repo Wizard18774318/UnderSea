@@ -1,28 +1,70 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles player-side game logic: invincibility frames, oxygen passive drain,
+/// suffocation, and incoming damage. All actual HP / oxygen values live in
+/// PlayerStatsManager so any HUD or system can read them globally.
+/// </summary>
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private int maxHp = 12;
+    [Header("Invincibility")]
     [SerializeField] private float invincibilityDuration = 1.5f;
 
-    private int currentHp;
-    private bool isInvincible;
-    private float invincibilityTimer;
+    [Header("Damage")]
+    [SerializeField] private int projectileDamage  = 4;   // 4 quarters = 1 full heart
+    [SerializeField] private int suffocationDamage = 1;   // 1 quarter-heart per tick
 
-    void Start()
+    [Header("Oxygen Drain")]
+    [SerializeField] private float oxygenDrainRate         = 2.5f; // oxygen per second
+    [SerializeField] private float suffocationDamageInterval = 1.5f;
+
+    private bool  isInvincible;
+    private float invincibilityTimer;
+    private float suffocationTimer;
+
+    private void Start()
     {
-        currentHp = maxHp;
+        suffocationTimer = suffocationDamageInterval;
+
+        if (PlayerStatsManager.Instance != null)
+            PlayerStatsManager.Instance.OnPlayerDied += HandleDeath;
     }
 
-    void Update()
+    private void OnDestroy()
     {
+        if (PlayerStatsManager.Instance != null)
+            PlayerStatsManager.Instance.OnPlayerDied -= HandleDeath;
+    }
+
+    private void Update()
+    {
+        // Invincibility countdown
         if (isInvincible)
         {
             invincibilityTimer -= Time.deltaTime;
             if (invincibilityTimer <= 0f)
-            {
                 isInvincible = false;
+        }
+
+        if (PlayerStatsManager.Instance == null) return;
+
+        // Passive oxygen drain
+        PlayerStatsManager.Instance.DrainOxygen(oxygenDrainRate * Time.deltaTime);
+
+        // Suffocation when out of oxygen
+        if (PlayerStatsManager.Instance.CurrentOxygen <= 0f)
+        {
+            suffocationTimer -= Time.deltaTime;
+            if (suffocationTimer <= 0f)
+            {
+                suffocationTimer = suffocationDamageInterval;
+                PlayerStatsManager.Instance.TakeDamage(suffocationDamage);
+                Debug.Log("Player is suffocating!");
             }
+        }
+        else
+        {
+            suffocationTimer = suffocationDamageInterval;
         }
     }
 
@@ -30,23 +72,29 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.CompareTag("Enemy_Projectile") && !isInvincible)
         {
-            TakeDamage(4);
+            TakeDamage(projectileDamage);
+            // Note: projectile destruction is handled by the projectile itself or caller
         }
+    }
+
+    /// <summary>Called by OxygenBubble while the player is inside.</summary>
+    public void GainOxygen(float amount)
+    {
+        PlayerStatsManager.Instance?.GainOxygen(amount);
     }
 
     private void TakeDamage(int amount)
     {
-        currentHp -= amount;
-        Debug.Log($"Player HP: {currentHp}/{maxHp}");
-
-        isInvincible = true;
+        isInvincible      = true;
         invincibilityTimer = invincibilityDuration;
+        PlayerStatsManager.Instance?.TakeDamage(amount);
+    }
 
-        if (currentHp <= 0)
-        {
-            Debug.Log("Player died!");
-            Destroy(gameObject);
-        }
+    private void HandleDeath()
+    {
+        Debug.Log("Player died!");
+        Destroy(gameObject);
     }
 }
+
 

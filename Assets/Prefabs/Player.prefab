@@ -161,6 +161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 12
   invincibilityDuration: 1.5
+  maxOxygen: 100
+  oxygenDrainRate: 2.5
+  suffocationDamageInterval: 1.5
 --- !u!50 &1145704073093830955
 Rigidbody2D:
   serializedVersion: 5

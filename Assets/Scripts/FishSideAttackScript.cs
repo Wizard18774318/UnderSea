@@ -3,6 +3,7 @@ using UnityEngine;
 public class FishSideAttackScript : MonoBehaviour
 {
     [Header("Spawn Settings")]
+    [SerializeField] private bool spawnEnabled = true;
     [SerializeField] private GameObject fishPrefab;
     [SerializeField] private Sprite[] fishSprites;
     [SerializeField] private int fishCount = 7;
@@ -12,6 +13,11 @@ public class FishSideAttackScript : MonoBehaviour
 
     [Header("Gap Settings")]
     [SerializeField] private int gapSize = 2;
+
+    [Header("Wave Noise")]
+    [SerializeField] private float noisePosX = 1f;     // random X offset per fish
+    [SerializeField] private float noisePosY = 0.4f;   // random Y offset per fish
+    [SerializeField] private float noiseSpeed = 1f;    // random speed variance per fish
 
     [Header("Movement Settings")]
     [SerializeField] private float fishSpeed = 6f;
@@ -27,6 +33,7 @@ public class FishSideAttackScript : MonoBehaviour
 
     private void SpawnWave()
     {
+        if (!spawnEnabled) return;
         float totalHeight = (fishCount - 1) * verticalSpacing;
         float startY = centerY - totalHeight / 2f;
 
@@ -38,7 +45,9 @@ public class FishSideAttackScript : MonoBehaviour
                 continue;
 
             float y = startY + i * verticalSpacing;
-            Vector3 spawnPos = new Vector3(spawnX, y, 0f);
+            float offsetX = Random.Range(-noisePosX, noisePosX);
+            float offsetY = Random.Range(-noisePosY, noisePosY);
+            Vector3 spawnPos = new Vector3(spawnX + offsetX, y + offsetY, 0f);
             GameObject fish = Instantiate(fishPrefab, spawnPos, Quaternion.identity);
 
             if (fishSprites != null && fishSprites.Length > 0)
@@ -51,7 +60,8 @@ public class FishSideAttackScript : MonoBehaviour
             FishMover mover = fish.GetComponent<FishMover>();
             if (mover != null)
             {
-                mover.Init(moveDirection.normalized, fishSpeed);
+                float speed = fishSpeed + Random.Range(-noiseSpeed, noiseSpeed);
+                mover.Init(moveDirection.normalized, Mathf.Max(0.1f, speed));
             }
         }
     }

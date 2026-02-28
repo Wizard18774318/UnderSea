@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FishHuffSpawn : MonoBehaviour
 {
+    [SerializeField] private bool spawnEnabled = true;
     [SerializeField] private GameObject fishPrefab;
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float fishSpeed = 5f;
@@ -17,6 +18,7 @@ public class FishHuffSpawn : MonoBehaviour
 
     private void SpawnFish()
     {
+        if (!spawnEnabled) return;
         if (fishPrefab == null) return;
 
         float halfH = mainCam.orthographicSize;

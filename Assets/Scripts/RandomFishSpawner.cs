@@ -3,6 +3,7 @@ using UnityEngine;
 public class RandomFishSpawner : MonoBehaviour
 {
     [Header("Prefab & Sprites")]
+    [SerializeField] private bool spawnEnabled = true;
     [SerializeField] private GameObject fishPrefab;
     [SerializeField] private Sprite[] fishSprites;
 
@@ -37,6 +38,7 @@ public class RandomFishSpawner : MonoBehaviour
 
     private void SpawnFish()
     {
+        if (!spawnEnabled) { ScheduleNextSpawn(); return; }
         if (fishPrefab == null) { ScheduleNextSpawn(); return; }
 
         int side = Random.Range(0, 4);

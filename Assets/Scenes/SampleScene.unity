@@ -438,6 +438,8 @@ GameObject:
   - component: {fileID: 1989881007}
   - component: {fileID: 1989881008}
   - component: {fileID: 1989881009}
+  - component: {fileID: 1989881011}
+  - component: {fileID: 1989881010}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -473,9 +475,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7391265824892893411, guid: 00964924fb14c35409855e7de374cb15, type: 3}
+  spawnBoss: 1
   bossPrefab: {fileID: 4784044733322874709, guid: 2c27cf6b709449b4a8a6798f290a3732, type: 3}
   objectDestroyerPrefab: {fileID: 3954891832810137861, guid: 618f5454b24b2e04883a8be03cef2951, type: 3}
-  fishHuffSpawnPrefab: {fileID: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1989881009
 MonoBehaviour:
@@ -489,10 +491,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f67c50cdfe32d47bde3edebbe5b656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnEnabled: 1
   fishPrefab: {fileID: 7588694974094103667, guid: 8d12301a756beb7489b68d2ca1fd5be8, type: 3}
-  spawnInterval: 5
-  fishSpeed: 6
-  screenPadding: 5
+  spawnInterval: 10
+  fishSpeed: 7
+  screenPadding: 10
+--- !u!114 &1989881010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989881006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbaefa043fbcf6e4f824f7dd8e73883d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnEnabled: 1
+  oxygenBubblePrefab: {fileID: 7624469858195668256, guid: 45fab7873e6f5524893a953d8cbf1f8a, type: 3}
+  spawnInterval: 2
+  maxBubblesAtOnce: 100
+  bubbleOxygenCapacity: 60
+  bubbleCapacityMinMultiplier: 1
+  bubbleCapacityMaxMultiplier: 1.5
+  bubbleOxygenRate: 20
+--- !u!114 &1989881011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989881006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80197437d99ea94584d916222cd9762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 12
+  startingHp: 12
+  maxOxygen: 100
+  startingOxygen: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
