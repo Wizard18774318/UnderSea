@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5365d4a8683c7e4b92fa640d789fd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 200
+  maxHp: 2
   phase2HpThreshold: 0.5
   phase2ScaleMultiplier: 1.4
   phase2Color: {r: 1, g: 0.15, b: 0.1, a: 1}
@@ -178,6 +178,8 @@ MonoBehaviour:
   spawnFishAttackRight: 0
   fishRandomConstantAttackPrefab: {fileID: 0}
   spawnFishRandomConstantAttack: 0
+  countsAsLevelBoss: 1
+  winScreen: {fileID: 0}
   spawnNoiseRadius: 1.5
 --- !u!114 &1996124121674862103
 MonoBehaviour:

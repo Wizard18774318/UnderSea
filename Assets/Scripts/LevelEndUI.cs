@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -43,6 +44,15 @@ public class LevelEndUI : MonoBehaviour
     {
         AttachPlayerCallbacks();
         AttachBossCallbacks();
+    }
+
+    private IEnumerator Start()
+    {
+        if (bossObjective == null)
+        {
+            yield return null;
+            AttachBossCallbacks();
+        }
     }
 
     private void OnDisable()

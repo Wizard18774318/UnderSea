@@ -26,7 +26,7 @@ public class BossFishManager : MonoBehaviour
 
     [Header("Victory")]
     [SerializeField] private bool countsAsLevelBoss = true;
-    [SerializeField] private Transform winScreen;
+    [SerializeField] private GameObject winScreen;
 
     [Header("Spawn Position Noise")]
     [SerializeField] private float spawnNoiseRadius = 1.5f;
@@ -93,7 +93,7 @@ public class BossFishManager : MonoBehaviour
                 Destroy(attack);
 
             if (winScreen != null)
-                winScreen.gameObject.SetActive(true);
+                winScreen.SetActive(true);
 
             if (countsAsLevelBoss)
                 OnBossKilled?.Invoke();
