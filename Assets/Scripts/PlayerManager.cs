@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Damage")]
     [SerializeField] private int projectileDamage  = 4;   // 4 quarters = 1 full heart
+    [SerializeField] private int contactDamage     = 4;   // boss body contact
     [SerializeField] private int suffocationDamage = 1;   // 1 quarter-heart per tick
 
     [Header("Oxygen Drain")]
@@ -70,10 +71,18 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy_Projectile") && !isInvincible)
+        Debug.Log($"[Player] OnTriggerEnter2D fired — other: '{other.gameObject.name}' tag: '{other.tag}' hasBossMovement: {other.GetComponentInParent<BossFishMovement>() != null} isInvincible: {isInvincible}");
+
+        if (isInvincible) return;
+
+        if (other.CompareTag("Enemy_Projectile"))
         {
             TakeDamage(projectileDamage);
-            // Note: projectile destruction is handled by the projectile itself or caller
+        }
+        else if (other.GetComponentInParent<BossFishMovement>() != null)
+        {
+            Debug.Log("[Player] Hit by boss fish body!");
+            TakeDamage(contactDamage);
         }
     }
 
@@ -85,9 +94,12 @@ public class PlayerManager : MonoBehaviour
 
     private void TakeDamage(int amount)
     {
-        isInvincible      = true;
+        isInvincible       = true;
         invincibilityTimer = invincibilityDuration;
+        float hpBefore = PlayerStatsManager.Instance?.CurrentHp ?? 0f;
         PlayerStatsManager.Instance?.TakeDamage(amount);
+        float hpAfter = PlayerStatsManager.Instance?.CurrentHp ?? 0f;
+        Debug.Log($"[Player] Took {amount} damage — HP: {hpBefore} → {hpAfter}");
     }
 
     private void HandleDeath()

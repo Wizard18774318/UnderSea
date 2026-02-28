@@ -25,7 +25,13 @@ public class BossFishDroppedFish : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector2 targetPos = player != null ? (Vector2)player.transform.position : (Vector2)transform.position + Vector2.down;
 
-        _moveDir     = (targetPos - (Vector2)transform.position).normalized;
+        InitDirection((targetPos - (Vector2)transform.position).normalized, maxSpeed);
+    }
+
+    public void InitDirection(Vector2 direction, float speed)
+    {
+        _moveDir     = direction.normalized;
+        maxSpeed     = speed;
         _initialised = true;
 
         if (_sr != null) _sr.flipX = _moveDir.x < 0f;

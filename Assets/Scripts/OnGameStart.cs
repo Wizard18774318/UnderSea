@@ -3,8 +3,10 @@ using UnityEngine;
 public class OnGameStart : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private Vector3 playerSpawnPosition = Vector3.zero;
     [SerializeField] private bool spawnBoss = true;
     [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private Vector3 bossSpawnPosition = Vector3.zero;
     [SerializeField] private GameObject objectDestroyerPrefab;
     [SerializeField] private Vector3 spawnPosition = Vector3.zero;
 
@@ -12,7 +14,7 @@ public class OnGameStart : MonoBehaviour
     {
         if (playerPrefab != null)
         {
-            Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
         }
         else
         {
@@ -21,7 +23,7 @@ public class OnGameStart : MonoBehaviour
 
         if (spawnBoss && bossPrefab != null)
         {
-            Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(bossPrefab, bossSpawnPosition, Quaternion.identity);
         }
         else
         {

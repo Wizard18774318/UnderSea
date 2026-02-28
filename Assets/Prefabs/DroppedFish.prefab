@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15d532b9535fdf499f747834202c717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 30
+  acceleration: 40
   maxSpeed: 25
   damage: 2
   offScreenKill: 3
