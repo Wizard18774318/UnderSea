@@ -338,9 +338,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1989881006}
+      - m_Target: {fileID: 1989881013}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1421,9 +1421,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 592492492}
-        m_TargetAssemblyTypeName: LevelEndUI, Assembly-CSharp
-        m_MethodName: LoadNextLevel
+      - m_Target: {fileID: 1989881014}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadRoadmap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3742,6 +3742,7 @@ GameObject:
   - component: {fileID: 1989881010}
   - component: {fileID: 1989881012}
   - component: {fileID: 1989881013}
+  - component: {fileID: 1989881014}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3866,6 +3867,19 @@ MonoBehaviour:
   pauseMenuRoot: {fileID: 1834903419}
   optionsMenuRoot: {fileID: 1775262913}
   mainMenuSceneName: Menu
+--- !u!114 &1989881014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989881006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1756c60501a3fde48377beab2828267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadmapSceneName: Roadmap
 --- !u!1 &2062186820
 GameObject:
   m_ObjectHideFlags: 0
