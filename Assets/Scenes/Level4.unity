@@ -2173,7 +2173,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1175782129}
+  m_Father: {fileID: 1878324807}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4093,7 +4093,7 @@ RectTransform:
   - {fileID: 1932103128}
   - {fileID: 1210402340}
   - {fileID: 961833382}
-  - {fileID: 624326850}
+  - {fileID: 1275334414}
   m_Father: {fileID: 1728596299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4338,7 +4338,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1878324807}
+  m_Father: {fileID: 1175782129}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4365,7 +4365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Winner, winner, chicken dinner!!!
+  m_text: You lose MUHAHAHA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94ee9ad1b46b36e58881f8310875b81f, type: 2}
   m_sharedMaterial: {fileID: 5847124076565099889, guid: 94ee9ad1b46b36e58881f8310875b81f, type: 2}
@@ -6221,7 +6221,7 @@ RectTransform:
   - {fileID: 18380312}
   - {fileID: 1046479674}
   - {fileID: 1553355479}
-  - {fileID: 1275334414}
+  - {fileID: 624326850}
   m_Father: {fileID: 1728596299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
