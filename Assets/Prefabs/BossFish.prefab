@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5365d4a8683c7e4b92fa640d789fd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 200
+  maxHp: 300
   phase2HpThreshold: 0.5
   phase2ScaleMultiplier: 1.4
   phase2Color: {r: 1, g: 0.15, b: 0.1, a: 1}
@@ -201,7 +201,7 @@ MonoBehaviour:
   sweepEdgePadding: 2
   sweepYOffset: -0.5
   aboveScreenOffset: 3
-  fishDropInterval: 0.7
+  fishDropInterval: 0.075
   droppedFishPrefab: {fileID: 4808770104881401178, guid: 08ab0e00115e1e5469a72ac38353486b, type: 3}
   spawnEnabled: 1
   wobbleAmplitude: 0.1
@@ -219,7 +219,7 @@ MonoBehaviour:
   rowFishSpeed: 6
   redBubblePrefab: {fileID: 4741802819556196432, guid: c6bf9215b5c5027439ffcde4d08c1356, type: 3}
   shieldPrefab: {fileID: 3703695927643148051, guid: e81c5425de3f0e740ad0fca84711152a, type: 3}
-  bubbleCount: 8
+  bubbleCount: 12
   bubbleOutSpeed: 7
   bubbleReturnDelay: 8
   bubbleCurlSpeed: 30
@@ -228,11 +228,11 @@ MonoBehaviour:
   centerFireHold: 3.5
   ambushFishPrefab: {fileID: 3163824343516321223, guid: e1615644173991145b2eb92e3ec9eae7, type: 3}
   ambushSweepSpeed: 6
-  ambushDropInterval: 0.45
+  ambushDropInterval: 0.35
   ambushEdgeOffset: 0.5
   ambushMinRepeats: 1
   ambushMaxRepeats: 2
-  phase2PatrolSpeed: 14
+  phase2PatrolSpeed: 12
   phase2PatrolMinDuration: 6
   phase2PatrolMaxDuration: 8
   phase2PatrolYRange: 0.6

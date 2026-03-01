@@ -6822,7 +6822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f67c50cdfe32d47bde3edebbe5b656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEnabled: 0
+  spawnEnabled: 1
   fishPrefab: {fileID: 7588694974094103667, guid: 8d12301a756beb7489b68d2ca1fd5be8, type: 3}
   spawnInterval: 10
   fishSpeed: 7
